@@ -1,0 +1,69 @@
+﻿@model IEnumerable<InventarioUdC.GUI.ModeloDB.tb_producto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_registro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.serieal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tb_espacio.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tb_marca.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tb_persona.primer_nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tb_tipo_producto.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_registro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.serieal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_espacio.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_marca.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_persona.primer_nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_tipo_producto.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

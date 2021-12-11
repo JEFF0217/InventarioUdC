@@ -51,6 +51,8 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\roslyn\vbc.r
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\roslyn\VBCSCompiler.exe
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Antlr3.Runtime.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.SqlServer.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Newtonsoft.Json.dll
@@ -62,6 +64,8 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.W
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.WebPages.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.WebPages.Razor.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\WebGrease.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.SqlServer.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Helpers.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Mvc.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Optimization.xml
