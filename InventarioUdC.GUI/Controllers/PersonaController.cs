@@ -8,17 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using AccesoDeDatos.ModeloDeDatos;
 using AccesoDeDatos.Implementacion;
+using InventarioUdC.GUI.Mapeadores.Parametros;
+using InventarioUdC.GUI.Models;
+using InventarioUdC.GUI.Helpers;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class PersonaController : Controller
     {
-        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
+        private ImplPersonaDatos acceso = new ImplPersonaDatos();
 
         // GET: Persona
-        public ActionResult Index()
+        public ActionResult Index(string filtro = "")
         {
-            return View(acceso.tb_persona.ToList());
+            IEnumerable<tb_persona> listaDatos = acceso.ListarRegistros(filtro).ToList();
+            MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
+            IEnumerable<ModeloPersonaGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+            return View(ListaGUI);
         }
 
         // GET: Persona/Details/5
@@ -28,12 +34,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_persona tb_persona = acceso.tb_persona.Find(id);
+            tb_persona tb_persona = acceso.BuscarRegistro(id.Value);
             if (tb_persona == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_persona);
+            MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
+            ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(tb_persona);
+            return View(modelo);
         }
 
         // GET: Persona/Create
@@ -47,16 +55,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,primer_nombre,otros_nombres,primer_apellido,segundo_apellido,documento,celular,correo")] tb_persona tb_persona)
+        public ActionResult Create([Bind(Include = "Id,Primer_nombre,Otros_nombres,Primer_apellido,Segundo_apellido,Documento,Celular,Correo")] ModeloPersonaGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.tb_persona.Add(tb_persona);
-                acceso.SaveChanges();
+                MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
+                tb_persona tb_persona = mapper.MapearTipo2Tipo1(modelo);
+
+                acceso.GuardarRegistro(tb_persona);
                 return RedirectToAction("Index");
             }
 
-            return View(tb_persona);
+            return View(modelo);
         }
 
         // GET: Persona/Edit/5
@@ -66,12 +76,15 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_persona tb_persona = acceso.tb_persona.Find(id);
+            tb_persona tb_persona = acceso.BuscarRegistro(id.Value);
             if (tb_persona == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_persona);
+
+            MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
+            ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(tb_persona);
+            return View(modelo);
         }
 
         // POST: Persona/Edit/5
@@ -79,15 +92,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,primer_nombre,otros_nombres,primer_apellido,segundo_apellido,documento,celular,correo")] tb_persona tb_persona)
+        public ActionResult Edit([Bind(Include = "Id,Primer_nombre,Otros_nombres,Primer_apellido,Segundo_apellido,documento,Celular,Correo")] ModeloPersonaGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.Entry(tb_persona).State = EntityState.Modified;
-                acceso.SaveChanges();
+
+                MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
+                tb_persona tb_persona = mapper.MapearTipo2Tipo1(modelo);
+
+                acceso.EditarRegistro(tb_persona);
                 return RedirectToAction("Index");
             }
-            return View(tb_persona);
+            return View(modelo);
         }
 
         // GET: Persona/Delete/5
@@ -97,12 +113,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_persona tb_persona = acceso.tb_persona.Find(id);
+            tb_persona tb_persona = acceso.BuscarRegistro(id.Value);
             if (tb_persona == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_persona);
+            MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
+            ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(tb_persona);
+            return View(modelo);
         }
 
         // POST: Persona/Delete/5
@@ -110,19 +128,26 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_persona tb_persona = acceso.tb_persona.Find(id);
-            acceso.tb_persona.Remove(tb_persona);
-            acceso.SaveChanges();
-            return RedirectToAction("Index");
+            bool respuesta = acceso.ELiminarRegistro(id);
+            if (respuesta)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                tb_persona tb_persona = acceso.BuscarRegistro(id);
+                if (tb_persona == null)
+                {
+                    return HttpNotFound();
+                }
+
+                MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
+                ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
+
+                ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(tb_persona);
+                return View(modelo);
+            }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                acceso.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

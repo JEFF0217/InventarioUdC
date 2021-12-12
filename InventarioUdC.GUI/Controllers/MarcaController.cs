@@ -8,17 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using AccesoDeDatos.ModeloDeDatos;
 using AccesoDeDatos.Implementacion;
+using InventarioUdC.GUI.Mapeadores.Parametros;
+using InventarioUdC.GUI.Models;
+using InventarioUdC.GUI.Helpers;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class MarcaController : Controller
     {
-        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
+        private ImplMarcaDatos acceso = new ImplMarcaDatos();
 
         // GET: Marca
-        public ActionResult Index()
+        public ActionResult Index(string filtro = "")
         {
-            return View(acceso.tb_marca.ToList());
+            IEnumerable<tb_marca> listaDatos = acceso.ListarRegistros(filtro).ToList();
+            MapeadorMarcaGUI mapper = new MapeadorMarcaGUI();
+            IEnumerable<ModeloMarcaGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+            return View(ListaGUI);
         }
 
         // GET: Marca/Details/5
@@ -28,12 +34,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_marca tb_marca = acceso.tb_marca.Find(id);
+            tb_marca tb_marca = acceso.BuscarRegistro(id.Value);
             if (tb_marca == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_marca);
+            MapeadorMarcaGUI mapper = new MapeadorMarcaGUI();
+            ModeloMarcaGUI modelo = mapper.MapearTipo1Tipo2(tb_marca);
+            return View(modelo);
         }
 
         // GET: Marca/Create
@@ -47,16 +55,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre")] tb_marca tb_marca)
+        public ActionResult Create([Bind(Include = "Id,Nombre")] ModeloMarcaGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.tb_marca.Add(tb_marca);
-                acceso.SaveChanges();
+                MapeadorMarcaGUI mapper = new MapeadorMarcaGUI();
+                tb_marca tb_marca = mapper.MapearTipo2Tipo1(modelo);
+
+                acceso.GuardarRegistro(tb_marca);
                 return RedirectToAction("Index");
             }
 
-            return View(tb_marca);
+            return View(modelo);
         }
 
         // GET: Marca/Edit/5
@@ -66,12 +76,15 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_marca tb_marca = acceso.tb_marca.Find(id);
+            tb_marca tb_marca = acceso.BuscarRegistro(id.Value);
             if (tb_marca == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_marca);
+
+            MapeadorMarcaGUI mapper = new MapeadorMarcaGUI();
+            ModeloMarcaGUI modelo = mapper.MapearTipo1Tipo2(tb_marca);
+            return View(modelo);
         }
 
         // POST: Marca/Edit/5
@@ -79,15 +92,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre")] tb_marca tb_marca)
+        public ActionResult Edit([Bind(Include = "Id,Nombre")] ModeloMarcaGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.Entry(tb_marca).State = EntityState.Modified;
-                acceso.SaveChanges();
+
+                MapeadorMarcaGUI mapper = new MapeadorMarcaGUI();
+                tb_marca tb_marca = mapper.MapearTipo2Tipo1(modelo);
+
+                acceso.EditarRegistro(tb_marca);
                 return RedirectToAction("Index");
             }
-            return View(tb_marca);
+            return View(modelo);
         }
 
         // GET: Marca/Delete/5
@@ -97,12 +113,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_marca tb_marca = acceso.tb_marca.Find(id);
+            tb_marca tb_marca = acceso.BuscarRegistro(id.Value);
             if (tb_marca == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_marca);
+            MapeadorMarcaGUI mapper = new MapeadorMarcaGUI();
+            ModeloMarcaGUI modelo = mapper.MapearTipo1Tipo2(tb_marca);
+            return View(modelo);
         }
 
         // POST: Marca/Delete/5
@@ -110,19 +128,28 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_marca tb_marca = acceso.tb_marca.Find(id);
-            acceso.tb_marca.Remove(tb_marca);
-            acceso.SaveChanges();
-            return RedirectToAction("Index");
+
+            bool respuesta = acceso.ELiminarRegistro(id);
+            if (respuesta)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                tb_marca tb_marca = acceso.BuscarRegistro(id);
+                if (tb_marca == null)
+                {
+                    return HttpNotFound();
+                }
+
+                MapeadorMarcaGUI mapper = new MapeadorMarcaGUI();
+                ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
+
+                ModeloMarcaGUI modelo = mapper.MapearTipo1Tipo2(tb_marca);
+                return View(modelo);
+            }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                acceso.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

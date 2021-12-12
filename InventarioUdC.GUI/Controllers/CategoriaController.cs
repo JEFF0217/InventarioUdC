@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using AccesoDeDatos.Implementacion;
 using AccesoDeDatos.ModeloDeDatos;
+using InventarioUdC.GUI.Helpers;
+using InventarioUdC.GUI.Mapeadores.Parametros;
+using InventarioUdC.GUI.Models;
 using PagedList;
 
 
@@ -20,8 +23,12 @@ namespace InventarioUdC.GUI.Controllers
         // GET: Categoria
         public ActionResult Index(string filtro = "")
         {
-          
-            return View(acceso.ListarRegistros(filtro).ToList());
+
+
+            IEnumerable<tb_categoria> listaDatos = acceso.ListarRegistros(filtro).ToList();
+            MapeadorCategoriaGUI mapper = new MapeadorCategoriaGUI();
+            IEnumerable<ModeloCategoriaGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+            return View(ListaGUI);
         }
 
         // GET: Categoria/Details/5
@@ -36,7 +43,10 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tb_categoria);
+
+            MapeadorCategoriaGUI mapper = new MapeadorCategoriaGUI();
+            ModeloCategoriaGUI modelo = mapper.MapearTipo1Tipo2(tb_categoria);
+            return View(modelo);
         }
 
         // GET: Categoria/Create
@@ -50,15 +60,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre")] tb_categoria tb_categoria)
+        public ActionResult Create([Bind(Include = "Id,Nombre")] ModeloCategoriaGUI modelo)
         {
             if (ModelState.IsValid)
             {
+                MapeadorCategoriaGUI mapper = new MapeadorCategoriaGUI();
+                tb_categoria tb_categoria = mapper.MapearTipo2Tipo1(modelo);
+
                 acceso.GuardarRegistro(tb_categoria);
                 return RedirectToAction("Index");
             }
 
-            return View(tb_categoria);
+            return View(modelo);
         }
 
         // GET: Categoria/Edit/5
@@ -73,7 +86,10 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tb_categoria);
+
+            MapeadorCategoriaGUI mapper = new MapeadorCategoriaGUI();
+            ModeloCategoriaGUI modelo = mapper.MapearTipo1Tipo2(tb_categoria);
+            return View(modelo);
         }
 
         // POST: Categoria/Edit/5
@@ -81,15 +97,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre")] tb_categoria tb_categoria)
+        public ActionResult Edit([Bind(Include = "Id,Nombre")] ModeloCategoriaGUI modelo)
         {
             if (ModelState.IsValid)
             {
+                MapeadorCategoriaGUI mapper = new MapeadorCategoriaGUI();
+                tb_categoria tb_categoria = mapper.MapearTipo2Tipo1(modelo);
+
                 acceso.EditarRegistro(tb_categoria);
                 return RedirectToAction("Index");
             }
-            return View(tb_categoria);
-        }
+            return View(modelo);
+        } 
 
         // GET: Categoria/Delete/5
         public ActionResult Delete(int? id)
@@ -103,7 +122,10 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tb_categoria);
+
+            MapeadorCategoriaGUI mapper = new MapeadorCategoriaGUI();
+            ModeloCategoriaGUI modelo = mapper.MapearTipo1Tipo2(tb_categoria);
+            return View(modelo);
         }
 
         // POST: Categoria/Delete/5
@@ -111,9 +133,27 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-          
-            acceso.ELiminarRegistro(id);
-            return RedirectToAction("Index");
+
+            bool respuesta = acceso.ELiminarRegistro(id);
+            if (respuesta)
+            {
+                return RedirectToAction("Index");
+            }
+            else {
+                tb_categoria tb_categoria = acceso.BuscarRegistro(id);
+                if (tb_categoria == null)
+                {
+                    return HttpNotFound();
+                }
+
+                MapeadorCategoriaGUI mapper = new MapeadorCategoriaGUI();
+                ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
+
+                ModeloCategoriaGUI modelo = mapper.MapearTipo1Tipo2(tb_categoria);
+                return View(modelo);
+            }
+
+            
         }
     }
 }

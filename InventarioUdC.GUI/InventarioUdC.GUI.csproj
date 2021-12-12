@@ -148,6 +148,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Mensajes.cs" />
+    <Compile Include="Mapeadores\MapeadorBaseGUI.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorMarcaGUI.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorCategoriaGUI.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorPersonaGUI.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorSedeGUI.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorTipoProductoGUI.cs" />
+    <Compile Include="Models\ModeloCategoriaGUI.cs" />
+    <Compile Include="Models\ModeloEdificioGUI.cs" />
+    <Compile Include="Models\ModeloEspacioGUI.cs" />
+    <Compile Include="Models\ModeloFotosGUI.cs" />
+    <Compile Include="Models\ModeloMarcaGUI.cs" />
+    <Compile Include="Models\ModeloPersonaGUI.cs" />
+    <Compile Include="Models\ModeloPisoGUI.cs" />
+    <Compile Include="Models\ModeloProductoGUI.cs" />
+    <Compile Include="Models\ModeloSedeGUI.cs" />
+    <Compile Include="Models\ModeloTipoProductoGUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -240,7 +257,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

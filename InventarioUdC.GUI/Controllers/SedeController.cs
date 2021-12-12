@@ -8,17 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using AccesoDeDatos.ModeloDeDatos;
 using AccesoDeDatos.Implementacion;
+using InventarioUdC.GUI.Mapeadores.Parametros;
+using InventarioUdC.GUI.Models;
+using InventarioUdC.GUI.Helpers;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class SedeController : Controller
     {
-        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
+        private ImplSedeDatos acceso = new ImplSedeDatos();
 
         // GET: Sede
-        public ActionResult Index()
+        public ActionResult Index(string filtro = "")
         {
-            return View(acceso.tb_sede.ToList());
+            IEnumerable<tb_sede> listaDatos = acceso.ListarRegistros(filtro).ToList();
+            MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+            IEnumerable<ModeloSedeGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+            return View(ListaGUI);
         }
 
         // GET: Sede/Details/5
@@ -28,12 +34,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = acceso.tb_sede.Find(id);
+            tb_sede tb_sede = acceso.BuscarRegistro(id.Value);
             if (tb_sede == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_sede);
+            MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(tb_sede);
+            return View(modelo);
         }
 
         // GET: Sede/Create
@@ -47,16 +55,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre,direccion")] tb_sede tb_sede)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Direccion")] ModeloSedeGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.tb_sede.Add(tb_sede);
-                acceso.SaveChanges();
+                MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+                tb_sede tb_sede = mapper.MapearTipo2Tipo1(modelo);
+
+                acceso.GuardarRegistro(tb_sede);
                 return RedirectToAction("Index");
             }
 
-            return View(tb_sede);
+            return View(modelo);
         }
 
         // GET: Sede/Edit/5
@@ -66,12 +76,15 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = acceso.tb_sede.Find(id);
+            tb_sede tb_sede = acceso.BuscarRegistro(id.Value);
             if (tb_sede == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_sede);
+
+            MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(tb_sede);
+            return View(modelo);
         }
 
         // POST: Sede/Edit/5
@@ -79,15 +92,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre,direccion")] tb_sede tb_sede)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Direccion")] ModeloSedeGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.Entry(tb_sede).State = EntityState.Modified;
-                acceso.SaveChanges();
+
+                MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+                tb_sede tb_sede = mapper.MapearTipo2Tipo1(modelo);
+
+                acceso.EditarRegistro(tb_sede);
                 return RedirectToAction("Index");
             }
-            return View(tb_sede);
+            return View(modelo);
         }
 
         // GET: Sede/Delete/5
@@ -97,12 +113,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = acceso.tb_sede.Find(id);
+            tb_sede tb_sede = acceso.BuscarRegistro(id.Value);
             if (tb_sede == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_sede);
+            MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(tb_sede);
+            return View(modelo);
         }
 
         // POST: Sede/Delete/5
@@ -110,19 +128,28 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_sede tb_sede = acceso.tb_sede.Find(id);
-            acceso.tb_sede.Remove(tb_sede);
-            acceso.SaveChanges();
+            acceso.ELiminarRegistro(id);
             return RedirectToAction("Index");
+            bool respuesta = acceso.ELiminarRegistro(id);
+            if (respuesta)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                tb_sede tb_sede = acceso.BuscarRegistro(id);
+                if (tb_sede == null)
+                {
+                    return HttpNotFound();
+                }
+
+                MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+                ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
+
+                ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(tb_sede);
+                return View(modelo);
+            }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                acceso.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

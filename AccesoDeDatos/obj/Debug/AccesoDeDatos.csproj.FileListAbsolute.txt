@@ -5,7 +5,6 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\EntityFram
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\EntityFramework.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.AssemblyReference.cache
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.CoreCompileInputs.cache
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.CopyComplete
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.dll
