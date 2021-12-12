@@ -6,18 +6,22 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using AccesoDeDatos.Implementacion;
+using AccesoDeDatos.ModeloDeDatos;
+using PagedList;
+
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class CategoriaController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private ImplCategoriaDatos acceso = new ImplCategoriaDatos();
 
         // GET: Categoria
-        public ActionResult Index()
+        public ActionResult Index(string filtro = "")
         {
-            return View(db.tb_categoria.ToList());
+          
+            return View(acceso.ListarRegistros(filtro).ToList());
         }
 
         // GET: Categoria/Details/5
@@ -27,7 +31,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_categoria tb_categoria = db.tb_categoria.Find(id);
+            tb_categoria tb_categoria = acceso.BuscarRegistro(id.Value);
             if (tb_categoria == null)
             {
                 return HttpNotFound();
@@ -50,8 +54,7 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tb_categoria.Add(tb_categoria);
-                db.SaveChanges();
+                acceso.GuardarRegistro(tb_categoria);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +68,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_categoria tb_categoria = db.tb_categoria.Find(id);
+            tb_categoria tb_categoria = acceso.BuscarRegistro(id.Value);
             if (tb_categoria == null)
             {
                 return HttpNotFound();
@@ -82,8 +85,7 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_categoria).State = EntityState.Modified;
-                db.SaveChanges();
+                acceso.EditarRegistro(tb_categoria);
                 return RedirectToAction("Index");
             }
             return View(tb_categoria);
@@ -96,7 +98,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_categoria tb_categoria = db.tb_categoria.Find(id);
+            tb_categoria tb_categoria = acceso.BuscarRegistro(id.Value);
             if (tb_categoria == null)
             {
                 return HttpNotFound();
@@ -109,19 +111,9 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_categoria tb_categoria = db.tb_categoria.Find(id);
-            db.tb_categoria.Remove(tb_categoria);
-            db.SaveChanges();
+          
+            acceso.ELiminarRegistro(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
