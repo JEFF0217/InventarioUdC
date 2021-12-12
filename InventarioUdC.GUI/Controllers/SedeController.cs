@@ -6,18 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.Implementacion;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class SedeController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
 
         // GET: Sede
         public ActionResult Index()
         {
-            return View(db.tb_sede.ToList());
+            return View(acceso.tb_sede.ToList());
         }
 
         // GET: Sede/Details/5
@@ -27,7 +28,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = db.tb_sede.Find(id);
+            tb_sede tb_sede = acceso.tb_sede.Find(id);
             if (tb_sede == null)
             {
                 return HttpNotFound();
@@ -50,8 +51,8 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tb_sede.Add(tb_sede);
-                db.SaveChanges();
+                acceso.tb_sede.Add(tb_sede);
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +66,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = db.tb_sede.Find(id);
+            tb_sede tb_sede = acceso.tb_sede.Find(id);
             if (tb_sede == null)
             {
                 return HttpNotFound();
@@ -82,8 +83,8 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_sede).State = EntityState.Modified;
-                db.SaveChanges();
+                acceso.Entry(tb_sede).State = EntityState.Modified;
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(tb_sede);
@@ -96,7 +97,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = db.tb_sede.Find(id);
+            tb_sede tb_sede = acceso.tb_sede.Find(id);
             if (tb_sede == null)
             {
                 return HttpNotFound();
@@ -109,9 +110,9 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_sede tb_sede = db.tb_sede.Find(id);
-            db.tb_sede.Remove(tb_sede);
-            db.SaveChanges();
+            tb_sede tb_sede = acceso.tb_sede.Find(id);
+            acceso.tb_sede.Remove(tb_sede);
+            acceso.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +120,7 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                acceso.Dispose();
             }
             base.Dispose(disposing);
         }

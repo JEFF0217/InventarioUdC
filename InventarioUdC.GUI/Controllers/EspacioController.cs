@@ -6,18 +6,20 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.Implementacion;
+
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class EspacioController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
 
         // GET: Espacio
         public ActionResult Index()
         {
-            var tb_espacio = db.tb_espacio.Include(t => t.tb_piso);
+            var tb_espacio = acceso.tb_espacio.Include(t => t.tb_piso);
             return View(tb_espacio.ToList());
         }
 
@@ -28,7 +30,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_espacio tb_espacio = db.tb_espacio.Find(id);
+            tb_espacio tb_espacio = acceso.tb_espacio.Find(id);
             if (tb_espacio == null)
             {
                 return HttpNotFound();
@@ -39,7 +41,7 @@ namespace InventarioUdC.GUI.Controllers
         // GET: Espacio/Create
         public ActionResult Create()
         {
-            ViewBag.id_piso = new SelectList(db.tb_piso, "id", "nombre");
+            ViewBag.id_piso = new SelectList(acceso.tb_piso, "id", "nombre");
             return View();
         }
 
@@ -52,12 +54,12 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tb_espacio.Add(tb_espacio);
-                db.SaveChanges();
+                acceso.tb_espacio.Add(tb_espacio);
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_piso = new SelectList(db.tb_piso, "id", "nombre", tb_espacio.id_piso);
+            ViewBag.id_piso = new SelectList(acceso.tb_piso, "id", "nombre", tb_espacio.id_piso);
             return View(tb_espacio);
         }
 
@@ -68,12 +70,12 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_espacio tb_espacio = db.tb_espacio.Find(id);
+            tb_espacio tb_espacio = acceso.tb_espacio.Find(id);
             if (tb_espacio == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_piso = new SelectList(db.tb_piso, "id", "nombre", tb_espacio.id_piso);
+            ViewBag.id_piso = new SelectList(acceso.tb_piso, "id", "nombre", tb_espacio.id_piso);
             return View(tb_espacio);
         }
 
@@ -86,11 +88,11 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_espacio).State = EntityState.Modified;
-                db.SaveChanges();
+                acceso.Entry(tb_espacio).State = EntityState.Modified;
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_piso = new SelectList(db.tb_piso, "id", "nombre", tb_espacio.id_piso);
+            ViewBag.id_piso = new SelectList(acceso.tb_piso, "id", "nombre", tb_espacio.id_piso);
             return View(tb_espacio);
         }
 
@@ -101,7 +103,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_espacio tb_espacio = db.tb_espacio.Find(id);
+            tb_espacio tb_espacio = acceso.tb_espacio.Find(id);
             if (tb_espacio == null)
             {
                 return HttpNotFound();
@@ -114,9 +116,9 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_espacio tb_espacio = db.tb_espacio.Find(id);
-            db.tb_espacio.Remove(tb_espacio);
-            db.SaveChanges();
+            tb_espacio tb_espacio = acceso.tb_espacio.Find(id);
+            acceso.tb_espacio.Remove(tb_espacio);
+            acceso.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -124,7 +126,7 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                acceso.Dispose();
             }
             base.Dispose(disposing);
         }

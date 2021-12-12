@@ -6,18 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.Implementacion;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class MarcaController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
 
         // GET: Marca
         public ActionResult Index()
         {
-            return View(db.tb_marca.ToList());
+            return View(acceso.tb_marca.ToList());
         }
 
         // GET: Marca/Details/5
@@ -27,7 +28,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_marca tb_marca = db.tb_marca.Find(id);
+            tb_marca tb_marca = acceso.tb_marca.Find(id);
             if (tb_marca == null)
             {
                 return HttpNotFound();
@@ -50,8 +51,8 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tb_marca.Add(tb_marca);
-                db.SaveChanges();
+                acceso.tb_marca.Add(tb_marca);
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +66,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_marca tb_marca = db.tb_marca.Find(id);
+            tb_marca tb_marca = acceso.tb_marca.Find(id);
             if (tb_marca == null)
             {
                 return HttpNotFound();
@@ -82,8 +83,8 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_marca).State = EntityState.Modified;
-                db.SaveChanges();
+                acceso.Entry(tb_marca).State = EntityState.Modified;
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(tb_marca);
@@ -96,7 +97,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_marca tb_marca = db.tb_marca.Find(id);
+            tb_marca tb_marca = acceso.tb_marca.Find(id);
             if (tb_marca == null)
             {
                 return HttpNotFound();
@@ -109,9 +110,9 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_marca tb_marca = db.tb_marca.Find(id);
-            db.tb_marca.Remove(tb_marca);
-            db.SaveChanges();
+            tb_marca tb_marca = acceso.tb_marca.Find(id);
+            acceso.tb_marca.Remove(tb_marca);
+            acceso.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +120,7 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                acceso.Dispose();
             }
             base.Dispose(disposing);
         }

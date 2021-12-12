@@ -1,0 +1,12 @@
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\AccesoDeDatos.dll.config
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\AccesoDeDatos.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\AccesoDeDatos.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\EntityFramework.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\EntityFramework.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.AssemblyReference.cache
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.CoreCompileInputs.cache
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.CopyComplete
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.pdb

@@ -6,18 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.Implementacion;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class TipoProductoController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
 
         // GET: TipoProducto
         public ActionResult Index()
         {
-            return View(db.tb_tipo_producto.ToList());
+            return View(acceso.tb_tipo_producto.ToList());
         }
 
         // GET: TipoProducto/Details/5
@@ -27,7 +28,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_tipo_producto tb_tipo_producto = db.tb_tipo_producto.Find(id);
+            tb_tipo_producto tb_tipo_producto = acceso.tb_tipo_producto.Find(id);
             if (tb_tipo_producto == null)
             {
                 return HttpNotFound();
@@ -50,8 +51,8 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tb_tipo_producto.Add(tb_tipo_producto);
-                db.SaveChanges();
+                acceso.tb_tipo_producto.Add(tb_tipo_producto);
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +66,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_tipo_producto tb_tipo_producto = db.tb_tipo_producto.Find(id);
+            tb_tipo_producto tb_tipo_producto = acceso.tb_tipo_producto.Find(id);
             if (tb_tipo_producto == null)
             {
                 return HttpNotFound();
@@ -82,8 +83,8 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_tipo_producto).State = EntityState.Modified;
-                db.SaveChanges();
+                acceso.Entry(tb_tipo_producto).State = EntityState.Modified;
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(tb_tipo_producto);
@@ -96,7 +97,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_tipo_producto tb_tipo_producto = db.tb_tipo_producto.Find(id);
+            tb_tipo_producto tb_tipo_producto = acceso.tb_tipo_producto.Find(id);
             if (tb_tipo_producto == null)
             {
                 return HttpNotFound();
@@ -109,9 +110,9 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_tipo_producto tb_tipo_producto = db.tb_tipo_producto.Find(id);
-            db.tb_tipo_producto.Remove(tb_tipo_producto);
-            db.SaveChanges();
+            tb_tipo_producto tb_tipo_producto = acceso.tb_tipo_producto.Find(id);
+            acceso.tb_tipo_producto.Remove(tb_tipo_producto);
+            acceso.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +120,7 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                acceso.Dispose();
             }
             base.Dispose(disposing);
         }

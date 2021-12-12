@@ -6,18 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.Implementacion;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class ProductoController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
 
         // GET: Producto
         public ActionResult Index()
         {
-            var tb_producto = db.tb_producto.Include(t => t.tb_espacio).Include(t => t.tb_marca).Include(t => t.tb_persona).Include(t => t.tb_tipo_producto);
+            var tb_producto = acceso.tb_producto.Include(t => t.tb_espacio).Include(t => t.tb_marca).Include(t => t.tb_persona).Include(t => t.tb_tipo_producto);
             return View(tb_producto.ToList());
         }
 
@@ -28,7 +29,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_producto tb_producto = db.tb_producto.Find(id);
+            tb_producto tb_producto = acceso.tb_producto.Find(id);
             if (tb_producto == null)
             {
                 return HttpNotFound();
@@ -39,10 +40,10 @@ namespace InventarioUdC.GUI.Controllers
         // GET: Producto/Create
         public ActionResult Create()
         {
-            ViewBag.id_espacio = new SelectList(db.tb_espacio, "id", "nombre");
-            ViewBag.id_marca = new SelectList(db.tb_marca, "id", "nombre");
-            ViewBag.id_persona = new SelectList(db.tb_persona, "id", "primer_nombre");
-            ViewBag.id_tipo_producto = new SelectList(db.tb_tipo_producto, "id", "nombre");
+            ViewBag.id_espacio = new SelectList(acceso.tb_espacio, "id", "nombre");
+            ViewBag.id_marca = new SelectList(acceso.tb_marca, "id", "nombre");
+            ViewBag.id_persona = new SelectList(acceso.tb_persona, "id", "primer_nombre");
+            ViewBag.id_tipo_producto = new SelectList(acceso.tb_tipo_producto, "id", "nombre");
             return View();
         }
 
@@ -55,15 +56,15 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tb_producto.Add(tb_producto);
-                db.SaveChanges();
+                acceso.tb_producto.Add(tb_producto);
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_espacio = new SelectList(db.tb_espacio, "id", "nombre", tb_producto.id_espacio);
-            ViewBag.id_marca = new SelectList(db.tb_marca, "id", "nombre", tb_producto.id_marca);
-            ViewBag.id_persona = new SelectList(db.tb_persona, "id", "primer_nombre", tb_producto.id_persona);
-            ViewBag.id_tipo_producto = new SelectList(db.tb_tipo_producto, "id", "nombre", tb_producto.id_tipo_producto);
+            ViewBag.id_espacio = new SelectList(acceso.tb_espacio, "id", "nombre", tb_producto.id_espacio);
+            ViewBag.id_marca = new SelectList(acceso.tb_marca, "id", "nombre", tb_producto.id_marca);
+            ViewBag.id_persona = new SelectList(acceso.tb_persona, "id", "primer_nombre", tb_producto.id_persona);
+            ViewBag.id_tipo_producto = new SelectList(acceso.tb_tipo_producto, "id", "nombre", tb_producto.id_tipo_producto);
             return View(tb_producto);
         }
 
@@ -74,15 +75,15 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_producto tb_producto = db.tb_producto.Find(id);
+            tb_producto tb_producto = acceso.tb_producto.Find(id);
             if (tb_producto == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_espacio = new SelectList(db.tb_espacio, "id", "nombre", tb_producto.id_espacio);
-            ViewBag.id_marca = new SelectList(db.tb_marca, "id", "nombre", tb_producto.id_marca);
-            ViewBag.id_persona = new SelectList(db.tb_persona, "id", "primer_nombre", tb_producto.id_persona);
-            ViewBag.id_tipo_producto = new SelectList(db.tb_tipo_producto, "id", "nombre", tb_producto.id_tipo_producto);
+            ViewBag.id_espacio = new SelectList(acceso.tb_espacio, "id", "nombre", tb_producto.id_espacio);
+            ViewBag.id_marca = new SelectList(acceso.tb_marca, "id", "nombre", tb_producto.id_marca);
+            ViewBag.id_persona = new SelectList(acceso.tb_persona, "id", "primer_nombre", tb_producto.id_persona);
+            ViewBag.id_tipo_producto = new SelectList(acceso.tb_tipo_producto, "id", "nombre", tb_producto.id_tipo_producto);
             return View(tb_producto);
         }
 
@@ -95,14 +96,14 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_producto).State = EntityState.Modified;
-                db.SaveChanges();
+                acceso.Entry(tb_producto).State = EntityState.Modified;
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_espacio = new SelectList(db.tb_espacio, "id", "nombre", tb_producto.id_espacio);
-            ViewBag.id_marca = new SelectList(db.tb_marca, "id", "nombre", tb_producto.id_marca);
-            ViewBag.id_persona = new SelectList(db.tb_persona, "id", "primer_nombre", tb_producto.id_persona);
-            ViewBag.id_tipo_producto = new SelectList(db.tb_tipo_producto, "id", "nombre", tb_producto.id_tipo_producto);
+            ViewBag.id_espacio = new SelectList(acceso.tb_espacio, "id", "nombre", tb_producto.id_espacio);
+            ViewBag.id_marca = new SelectList(acceso.tb_marca, "id", "nombre", tb_producto.id_marca);
+            ViewBag.id_persona = new SelectList(acceso.tb_persona, "id", "primer_nombre", tb_producto.id_persona);
+            ViewBag.id_tipo_producto = new SelectList(acceso.tb_tipo_producto, "id", "nombre", tb_producto.id_tipo_producto);
             return View(tb_producto);
         }
 
@@ -113,7 +114,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_producto tb_producto = db.tb_producto.Find(id);
+            tb_producto tb_producto = acceso.tb_producto.Find(id);
             if (tb_producto == null)
             {
                 return HttpNotFound();
@@ -126,9 +127,9 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_producto tb_producto = db.tb_producto.Find(id);
-            db.tb_producto.Remove(tb_producto);
-            db.SaveChanges();
+            tb_producto tb_producto = acceso.tb_producto.Find(id);
+            acceso.tb_producto.Remove(tb_producto);
+            acceso.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -136,7 +137,7 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                acceso.Dispose();
             }
             base.Dispose(disposing);
         }

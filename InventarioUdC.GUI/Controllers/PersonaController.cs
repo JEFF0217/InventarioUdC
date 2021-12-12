@@ -6,18 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.Implementacion;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class PersonaController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
 
         // GET: Persona
         public ActionResult Index()
         {
-            return View(db.tb_persona.ToList());
+            return View(acceso.tb_persona.ToList());
         }
 
         // GET: Persona/Details/5
@@ -27,7 +28,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_persona tb_persona = db.tb_persona.Find(id);
+            tb_persona tb_persona = acceso.tb_persona.Find(id);
             if (tb_persona == null)
             {
                 return HttpNotFound();
@@ -50,8 +51,8 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tb_persona.Add(tb_persona);
-                db.SaveChanges();
+                acceso.tb_persona.Add(tb_persona);
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +66,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_persona tb_persona = db.tb_persona.Find(id);
+            tb_persona tb_persona = acceso.tb_persona.Find(id);
             if (tb_persona == null)
             {
                 return HttpNotFound();
@@ -82,8 +83,8 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_persona).State = EntityState.Modified;
-                db.SaveChanges();
+                acceso.Entry(tb_persona).State = EntityState.Modified;
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(tb_persona);
@@ -96,7 +97,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_persona tb_persona = db.tb_persona.Find(id);
+            tb_persona tb_persona = acceso.tb_persona.Find(id);
             if (tb_persona == null)
             {
                 return HttpNotFound();
@@ -109,9 +110,9 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_persona tb_persona = db.tb_persona.Find(id);
-            db.tb_persona.Remove(tb_persona);
-            db.SaveChanges();
+            tb_persona tb_persona = acceso.tb_persona.Find(id);
+            acceso.tb_persona.Remove(tb_persona);
+            acceso.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +120,7 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                acceso.Dispose();
             }
             base.Dispose(disposing);
         }

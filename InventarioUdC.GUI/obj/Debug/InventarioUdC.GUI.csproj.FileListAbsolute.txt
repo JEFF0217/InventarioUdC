@@ -1,4 +1,3 @@
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\InventarioUdC.GUI.dll.config
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\InventarioUdC.GUI.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\InventarioUdC.GUI.pdb
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\roslyn\csc.exe
@@ -88,3 +87,11 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\Invent
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.csproj.CopyComplete
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\InventarioUdC.GUI.dll.config
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\AccesoDeDatos.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\AccesoDeDatos.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\AccesoDeDatos.dll.config
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.Mvc.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.Mvc.xml

@@ -6,18 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.Implementacion;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class FotosController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
 
         // GET: Fotos
         public ActionResult Index()
         {
-            var tb_fotos = db.tb_fotos.Include(t => t.tb_producto);
+            var tb_fotos = acceso.tb_fotos.Include(t => t.tb_producto);
             return View(tb_fotos.ToList());
         }
 
@@ -28,7 +29,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_fotos tb_fotos = db.tb_fotos.Find(id);
+            tb_fotos tb_fotos = acceso.tb_fotos.Find(id);
             if (tb_fotos == null)
             {
                 return HttpNotFound();
@@ -39,7 +40,7 @@ namespace InventarioUdC.GUI.Controllers
         // GET: Fotos/Create
         public ActionResult Create()
         {
-            ViewBag.id_producto = new SelectList(db.tb_producto, "id", "nombre");
+            ViewBag.id_producto = new SelectList(acceso.tb_producto, "id", "nombre");
             return View();
         }
 
@@ -52,12 +53,12 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tb_fotos.Add(tb_fotos);
-                db.SaveChanges();
+                acceso.tb_fotos.Add(tb_fotos);
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_producto = new SelectList(db.tb_producto, "id", "nombre", tb_fotos.id_producto);
+            ViewBag.id_producto = new SelectList(acceso.tb_producto, "id", "nombre", tb_fotos.id_producto);
             return View(tb_fotos);
         }
 
@@ -68,12 +69,12 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_fotos tb_fotos = db.tb_fotos.Find(id);
+            tb_fotos tb_fotos = acceso.tb_fotos.Find(id);
             if (tb_fotos == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_producto = new SelectList(db.tb_producto, "id", "nombre", tb_fotos.id_producto);
+            ViewBag.id_producto = new SelectList(acceso.tb_producto, "id", "nombre", tb_fotos.id_producto);
             return View(tb_fotos);
         }
 
@@ -86,11 +87,11 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_fotos).State = EntityState.Modified;
-                db.SaveChanges();
+                acceso.Entry(tb_fotos).State = EntityState.Modified;
+                acceso.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_producto = new SelectList(db.tb_producto, "id", "nombre", tb_fotos.id_producto);
+            ViewBag.id_producto = new SelectList(acceso.tb_producto, "id", "nombre", tb_fotos.id_producto);
             return View(tb_fotos);
         }
 
@@ -101,7 +102,7 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_fotos tb_fotos = db.tb_fotos.Find(id);
+            tb_fotos tb_fotos = acceso.tb_fotos.Find(id);
             if (tb_fotos == null)
             {
                 return HttpNotFound();
@@ -114,9 +115,9 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_fotos tb_fotos = db.tb_fotos.Find(id);
-            db.tb_fotos.Remove(tb_fotos);
-            db.SaveChanges();
+            tb_fotos tb_fotos = acceso.tb_fotos.Find(id);
+            acceso.tb_fotos.Remove(tb_fotos);
+            acceso.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -124,7 +125,7 @@ namespace InventarioUdC.GUI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                acceso.Dispose();
             }
             base.Dispose(disposing);
         }
