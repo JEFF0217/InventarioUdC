@@ -11,6 +11,7 @@ using AccesoDeDatos.Implementacion;
 using InventarioUdC.GUI.Mapeadores.Parametros;
 using InventarioUdC.GUI.Models;
 using InventarioUdC.GUI.Helpers;
+using PagedList;
 
 namespace InventarioUdC.GUI.Controllers
 {
@@ -19,12 +20,19 @@ namespace InventarioUdC.GUI.Controllers
         private ImplPersonaDatos acceso = new ImplPersonaDatos();
 
         // GET: Persona
-        public ActionResult Index(string filtro = "")
+        public ActionResult Index(int? page, string filtro = "")
         {
-            IEnumerable<tb_persona> listaDatos = acceso.ListarRegistros(filtro).ToList();
+            int numPagina = page ?? 1;
+            int totalRegistros;
+            int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
+
+            IEnumerable<tb_persona> listaDatos = acceso.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
             MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
             IEnumerable<ModeloPersonaGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
-            return View(ListaGUI);
+
+            // var registrosPagina = ListaGUI.ToPagedList(numPagina, registrosPorPagina);
+            var listaPagina = new StaticPagedList<ModeloPersonaGUI>(ListaGUI, numPagina, registrosPorPagina, totalRegistros);
+            return View(listaPagina);
         }
 
         // GET: Persona/Details/5

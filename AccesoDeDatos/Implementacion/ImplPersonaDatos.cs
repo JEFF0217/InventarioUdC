@@ -15,19 +15,18 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="filtro">Filtro a aplicar</param>
         /// <returns>Lista con el filtro aplicado</returns>
-        public IEnumerable<tb_persona> ListarRegistros(string filtro)
+        public IEnumerable<tb_persona> ListarRegistros(string filtro, int paginaActual, int numRegistrosPorPagina, out int totalRegistros)
         {
             var lista = new List<tb_persona>();
             using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
             {
-                if (String.IsNullOrWhiteSpace(filtro))
-                {
-                    lista = bd.tb_persona.ToList();
-                }
-                else
-                {
-                    lista = bd.tb_persona.Where(x => x.primer_nombre.ToUpper().Contains(filtro.ToUpper())).ToList();
-                }
+                int regDescartados = (paginaActual - 1) * numRegistrosPorPagina;
+                lista = (from m in bd.tb_persona
+                         where m.primer_nombre.Contains(filtro)
+                         select m).ToList();
+                totalRegistros = lista.Count();
+                lista = lista.OrderBy(m => m.id).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
+
 
             }
             return lista;

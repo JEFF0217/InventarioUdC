@@ -9,3 +9,4 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDa
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.CopyComplete
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\AccesoDeDatos\obj\Debug\AccesoDeDatos.csproj.AssemblyReference.cache

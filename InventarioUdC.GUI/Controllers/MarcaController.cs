@@ -11,6 +11,7 @@ using AccesoDeDatos.Implementacion;
 using InventarioUdC.GUI.Mapeadores.Parametros;
 using InventarioUdC.GUI.Models;
 using InventarioUdC.GUI.Helpers;
+using PagedList;
 
 namespace InventarioUdC.GUI.Controllers
 {
@@ -19,12 +20,19 @@ namespace InventarioUdC.GUI.Controllers
         private ImplMarcaDatos acceso = new ImplMarcaDatos();
 
         // GET: Marca
-        public ActionResult Index(string filtro = "")
+        public ActionResult Index(int? page, string filtro = "")
         {
-            IEnumerable<tb_marca> listaDatos = acceso.ListarRegistros(filtro).ToList();
+            int numPagina = page ?? 1;
+            int totalRegistros;
+            int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
+
+            IEnumerable<tb_marca> listaDatos = acceso.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
             MapeadorMarcaGUI mapper = new MapeadorMarcaGUI();
             IEnumerable<ModeloMarcaGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
-            return View(ListaGUI);
+
+            // var registrosPagina = ListaGUI.ToPagedList(numPagina, registrosPorPagina);
+            var listaPagina = new StaticPagedList<ModeloMarcaGUI>(ListaGUI, numPagina, registrosPorPagina, totalRegistros);
+            return View(listaPagina);
         }
 
         // GET: Marca/Details/5

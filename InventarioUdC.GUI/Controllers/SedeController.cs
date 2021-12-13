@@ -11,6 +11,7 @@ using AccesoDeDatos.Implementacion;
 using InventarioUdC.GUI.Mapeadores.Parametros;
 using InventarioUdC.GUI.Models;
 using InventarioUdC.GUI.Helpers;
+using PagedList;
 
 namespace InventarioUdC.GUI.Controllers
 {
@@ -19,12 +20,19 @@ namespace InventarioUdC.GUI.Controllers
         private ImplSedeDatos acceso = new ImplSedeDatos();
 
         // GET: Sede
-        public ActionResult Index(string filtro = "")
+        public ActionResult Index(int? page, string filtro = "")
         {
-            IEnumerable<tb_sede> listaDatos = acceso.ListarRegistros(filtro).ToList();
+            int numPagina = page ?? 1;
+            int totalRegistros;
+            int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
+
+            IEnumerable<tb_sede> listaDatos = acceso.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
             MapeadorSedeGUI mapper = new MapeadorSedeGUI();
             IEnumerable<ModeloSedeGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
-            return View(ListaGUI);
+
+            // var registrosPagina = ListaGUI.ToPagedList(numPagina, registrosPorPagina);
+            var listaPagina = new StaticPagedList<ModeloSedeGUI>(ListaGUI, numPagina, registrosPorPagina, totalRegistros);
+            return View(listaPagina);
         }
 
         // GET: Sede/Details/5

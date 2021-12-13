@@ -15,6 +15,7 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
             {
                 Id = entrada.id,
                 Nombre = entrada.nombre
+
             };
         }
 

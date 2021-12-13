@@ -21,14 +21,20 @@ namespace InventarioUdC.GUI.Controllers
         private ImplCategoriaDatos acceso = new ImplCategoriaDatos();
 
         // GET: Categoria
-        public ActionResult Index(string filtro = "")
+        public ActionResult Index(int? page, string filtro = "")
         {
 
+            int numPagina = page ?? 1;
+            int totalRegistros;
+            int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
 
-            IEnumerable<tb_categoria> listaDatos = acceso.ListarRegistros(filtro).ToList();
+            IEnumerable<tb_categoria> listaDatos = acceso.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
             MapeadorCategoriaGUI mapper = new MapeadorCategoriaGUI();
             IEnumerable<ModeloCategoriaGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
-            return View(ListaGUI);
+
+            // var registrosPagina = ListaGUI.ToPagedList(numPagina, registrosPorPagina);
+            var listaPagina = new StaticPagedList<ModeloCategoriaGUI>(ListaGUI, numPagina, registrosPorPagina, totalRegistros);
+            return View(listaPagina);
         }
 
         // GET: Categoria/Details/5
