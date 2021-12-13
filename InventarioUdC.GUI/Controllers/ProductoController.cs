@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using AccesoDeDatos.ModeloDeDatos;
-using AccesoDeDatos.Implementacion;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class ProductoController : Controller
-    {
+    {/*
         private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
 
         // GET: Producto
@@ -140,6 +134,6 @@ namespace InventarioUdC.GUI.Controllers
                 acceso.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

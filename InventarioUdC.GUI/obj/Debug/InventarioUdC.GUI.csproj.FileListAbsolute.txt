@@ -95,3 +95,5 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.dl
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.Mvc.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.Mvc.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\LogicaNegocio.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\LogicaNegocio.pdb

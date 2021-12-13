@@ -48,3 +48,10 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\InventarioUdC.GUI.Tests.csproj.CopyComplete
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\InventarioUdC.GUI.Tests.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\InventarioUdC.GUI.Tests.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\PagedList.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.dll.config
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\PagedList.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\LogicaNegocio.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\LogicaNegocio.pdb

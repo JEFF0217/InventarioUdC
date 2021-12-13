@@ -1,27 +1,25 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-using AccesoDeDatos.ModeloDeDatos;
 using InventarioUdC.GUI.Models;
+using LogicaNegocio.DTO;
+
 
 namespace InventarioUdC.GUI.Mapeadores.Parametros
 {
-    public class MapeadorEspacioGUI : MapeadorBaseGUI<tb_espacio, ModeloEspacioGUI>
+    public class MapeadorEspacioGUI : MapeadorBaseGUI<EspacioDTO, ModeloEspacioGUI>
     {
-        public override ModeloEspacioGUI MapearTipo1Tipo2(tb_espacio entrada)
+        public override ModeloEspacioGUI MapearTipo1Tipo2(EspacioDTO entrada)
         {
             return new ModeloEspacioGUI()
             {
-                Id = entrada.id,
-                Nombre = entrada.nombre,
-                Id_piso = entrada.id_piso
+                Id = entrada.Id,
+                Nombre = entrada.Nombre,
+                Id_piso = entrada.Id_piso
                 
             };
         }
 
-        public override IEnumerable<ModeloEspacioGUI> MapearTipo1Tipo2(IEnumerable<tb_espacio> entrada)
+        public override IEnumerable<ModeloEspacioGUI> MapearTipo1Tipo2(IEnumerable<EspacioDTO> entrada)
         {
             foreach (var item in entrada)
             {
@@ -29,18 +27,18 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
             }
         }
 
-        public override tb_espacio MapearTipo2Tipo1(ModeloEspacioGUI entrada)
+        public override EspacioDTO MapearTipo2Tipo1(ModeloEspacioGUI entrada)
         {
-            return new tb_espacio()
+            return new EspacioDTO()
             {
-                id = entrada.Id,
-                nombre = entrada.Nombre,
-                id_piso = entrada.Id_piso
+                Id = entrada.Id,
+                Nombre = entrada.Nombre,
+                Id_piso = entrada.Id_piso
           
             };
         }
 
-        public override IEnumerable<tb_espacio> MapearTipo2Tipo1(IEnumerable<ModeloEspacioGUI> entrada)
+        public override IEnumerable<EspacioDTO> MapearTipo2Tipo1(IEnumerable<ModeloEspacioGUI> entrada)
         {
             foreach (var item in entrada)
             {

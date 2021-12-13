@@ -1,0 +1,12 @@
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\bin\Debug\LogicaNegocio.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\bin\Debug\LogicaNegocio.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\obj\Debug\LogicaNegocio.csproj.AssemblyReference.cache
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\obj\Debug\LogicaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\obj\Debug\LogicaNegocio.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\obj\Debug\LogicaNegocio.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\bin\Debug\AccesoDeDatos.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\bin\Debug\EntityFramework.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\bin\Debug\AccesoDeDatos.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\bin\Debug\AccesoDeDatos.dll.config
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\bin\Debug\EntityFramework.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\LogicaNegocio\obj\Debug\LogicaNegocio.csproj.CopyComplete

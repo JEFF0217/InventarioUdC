@@ -1,24 +1,23 @@
-﻿using AccesoDeDatos.ModeloDeDatos;
+﻿
 using InventarioUdC.GUI.Models;
-using System;
+using LogicaNegocio.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+
 
 namespace InventarioUdC.GUI.Mapeadores.Parametros
 {
-    public class MapeadorMarcaGUI : MapeadorBaseGUI<tb_marca, ModeloMarcaGUI>
+    public class MapeadorMarcaGUI : MapeadorBaseGUI<MarcaDTO, ModeloMarcaGUI>
     {
-        public override ModeloMarcaGUI MapearTipo1Tipo2(tb_marca entrada)
+        public override ModeloMarcaGUI MapearTipo1Tipo2(MarcaDTO entrada)
         {
             return new ModeloMarcaGUI()
             {
-                Id = entrada.id,
-                Nombre = entrada.nombre
+                Id = entrada.Id,
+                Nombre = entrada.Nombre
             };
         }
 
-        public override IEnumerable<ModeloMarcaGUI> MapearTipo1Tipo2(IEnumerable<tb_marca> entrada)
+        public override IEnumerable<ModeloMarcaGUI> MapearTipo1Tipo2(IEnumerable<MarcaDTO> entrada)
         {
             foreach (var item in entrada)
             {
@@ -26,16 +25,16 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
             }
         }
 
-        public override tb_marca MapearTipo2Tipo1(ModeloMarcaGUI entrada)
+        public override MarcaDTO MapearTipo2Tipo1(ModeloMarcaGUI entrada)
         {
-            return new tb_marca()
+            return new MarcaDTO()
             {
-                id = entrada.Id,
-                nombre = entrada.Nombre
+                Id = entrada.Id,
+                Nombre = entrada.Nombre
             };
         }
 
-        public override IEnumerable<tb_marca> MapearTipo2Tipo1(IEnumerable<ModeloMarcaGUI> entrada)
+        public override IEnumerable<MarcaDTO> MapearTipo2Tipo1(IEnumerable<ModeloMarcaGUI> entrada)
         {
             foreach (var item in entrada)
             {

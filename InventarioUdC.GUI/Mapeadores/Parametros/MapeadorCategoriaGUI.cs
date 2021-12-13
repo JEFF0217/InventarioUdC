@@ -1,25 +1,22 @@
-﻿using AccesoDeDatos.ModeloDeDatos;
-using InventarioUdC.GUI.Models;
-using System;
+﻿using InventarioUdC.GUI.Models;
+using LogicaNegocio.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace InventarioUdC.GUI.Mapeadores.Parametros
 {
-    public class MapeadorCategoriaGUI : MapeadorBaseGUI<tb_categoria, ModeloCategoriaGUI>
+    public class MapeadorCategoriaGUI : MapeadorBaseGUI<CategoriaDTO, ModeloCategoriaGUI>
     {
-        public override ModeloCategoriaGUI MapearTipo1Tipo2(tb_categoria entrada)
+        public override ModeloCategoriaGUI MapearTipo1Tipo2(CategoriaDTO entrada)
         {
             return new ModeloCategoriaGUI()
             {
-                Id = entrada.id,
-                Nombre = entrada.nombre
+                Id = entrada.Id,
+                Nombre = entrada.Nombre
 
             };
         }
 
-        public override IEnumerable<ModeloCategoriaGUI> MapearTipo1Tipo2(IEnumerable<tb_categoria> entrada)
+        public override IEnumerable<ModeloCategoriaGUI> MapearTipo1Tipo2(IEnumerable<CategoriaDTO> entrada)
         {
             foreach (var item in entrada)
             {
@@ -27,16 +24,16 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
             }
         }
 
-        public override tb_categoria MapearTipo2Tipo1(ModeloCategoriaGUI entrada)
+        public override CategoriaDTO MapearTipo2Tipo1(ModeloCategoriaGUI entrada)
         {
-            return new tb_categoria()
+            return new CategoriaDTO()
             {
-                id = entrada.Id,
-                nombre = entrada.Nombre
+                Id = entrada.Id,
+                Nombre = entrada.Nombre
             };
         }
 
-        public override IEnumerable<tb_categoria> MapearTipo2Tipo1(IEnumerable<ModeloCategoriaGUI> entrada)
+        public override IEnumerable<CategoriaDTO> MapearTipo2Tipo1(IEnumerable<ModeloCategoriaGUI> entrada)
         {
             foreach (var item in entrada)
             {

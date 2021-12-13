@@ -1,13 +1,11 @@
 ﻿
 using System;
 using System.Collections.Generic;
-
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Data.Entity;
 using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.DbModel;
+using AccesoDeDatos.Mapeadores.Parametros;
 
 namespace AccesoDeDatos.Implementacion
 {
@@ -18,18 +16,18 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="filtro">Filtro a aplicar</param>
         /// <returns>Lista con el filtro aplicado</returns>
-        public IEnumerable<tb_tipo_producto> ListarRegistros(string filtro, int paginaActual, int numRegistrosPorPagina, out int totalRegistros)
+        public IEnumerable<TipoProductoDbModel> ListarRegistros(string filtro, int paginaActual, int numRegistrosPorPagina, out int totalRegistros)
         {
-            var lista = new List<tb_tipo_producto>();
+            var lista = new List<TipoProductoDbModel>();
             using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
             {
                 int regDescartados = (paginaActual - 1) * numRegistrosPorPagina;
-                lista = (from m in bd.tb_tipo_producto
+               var listaDatos = (from m in bd.tb_tipo_producto
                          where m.nombre.Contains(filtro)
                          select m).ToList();
-                totalRegistros = lista.Count();
-                lista = lista.OrderBy(m => m.id).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
-
+                totalRegistros = listaDatos.Count();
+                listaDatos = listaDatos.OrderBy(m => m.id).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
+                lista = new MapeadorTipoProductoDatos().MapearTipo1Tipo2(listaDatos).ToList();
 
             }
             return lista;
@@ -41,19 +39,22 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="registro"> el registro a almacenar </param>
         /// <returns>True cuando se almacena y false cuando ya existe el registro igual o una excepcion</returns>
-        public bool GuardarRegistro(tb_tipo_producto registro)
+        public bool GuardarRegistro(TipoProductoDbModel registro)
         {
             try
             {
                 using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
                 {
                     //verificacion de la existencia de un registro con un mismo nombre
-                    if (bd.tb_tipo_producto.Where(x => x.nombre.ToLower().Equals(registro.nombre.ToLower())).Count() > 0)
+                    if (bd.tb_tipo_producto.Where(x => x.nombre.ToLower().Equals(registro.Nombre.ToLower())).Count() > 0)
                     {
                         return false;
                     }
 
-                    bd.tb_tipo_producto.Add(registro);
+                    MapeadorTipoProductoDatos mapeador = new MapeadorTipoProductoDatos();
+                    var reg = mapeador.MapearTipo2Tipo1(registro);
+
+                    bd.tb_tipo_producto.Add(reg);
                     bd.SaveChanges();
                     return true;
                 }
@@ -69,12 +70,12 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="id"> El id del registro a buscar</param>
         /// <returns>retorna el objeto con el id buscado o null cuando no existe    </returns>
-        public tb_tipo_producto BuscarRegistro(int id)
+        public TipoProductoDbModel BuscarRegistro(int id)
         {
             using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
             {
                 tb_tipo_producto registro = bd.tb_tipo_producto.Find(id);
-                return registro;
+                return new MapeadorTipoProductoDatos().MapearTipo1Tipo2(registro);
             }
         }
 
@@ -87,19 +88,20 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="registro"> el registro a editar </param>
         /// <returns>True cuando se edita y false cuando no exite el registro igual o una excepcion</returns>
-        public bool EditarRegistro(tb_tipo_producto registro)
+        public bool EditarRegistro(TipoProductoDbModel registro)
         {
             try
             {
                 using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
                 {
                     //verificacion de la existencia de un registro con un mismo id
-                    if (bd.tb_tipo_producto.Where(x => x.id == registro.id).Count() == 0)
+                    if (bd.tb_tipo_producto.Where(x => x.id == registro.Id).Count() == 0)
                     {
                         return false;
                     }
-
-                    bd.Entry(registro).State = EntityState.Modified;
+                    MapeadorTipoProductoDatos mapeador = new MapeadorTipoProductoDatos();
+                    var reg = mapeador.MapearTipo2Tipo1(registro);
+                    bd.Entry(reg).State = EntityState.Modified;
                     bd.SaveChanges();
                     return true;
                 }

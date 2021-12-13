@@ -6,18 +6,18 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using AccesoDeDatos.ModeloDeDatos;
-using AccesoDeDatos.Implementacion;
 using InventarioUdC.GUI.Mapeadores.Parametros;
 using InventarioUdC.GUI.Models;
 using InventarioUdC.GUI.Helpers;
 using PagedList;
+using LogicaNegocio.Implementacion;
+using LogicaNegocio.DTO;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class SedeController : Controller
     {
-        private ImplSedeDatos acceso = new ImplSedeDatos();
+        private ImplSedeLogica logica = new ImplSedeLogica();
 
         // GET: Sede
         public ActionResult Index(int? page, string filtro = "")
@@ -26,7 +26,7 @@ namespace InventarioUdC.GUI.Controllers
             int totalRegistros;
             int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
 
-            IEnumerable<tb_sede> listaDatos = acceso.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
+            IEnumerable<SedeDTO> listaDatos = logica.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
             MapeadorSedeGUI mapper = new MapeadorSedeGUI();
             IEnumerable<ModeloSedeGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
 
@@ -42,13 +42,13 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = acceso.BuscarRegistro(id.Value);
-            if (tb_sede == null)
+            SedeDTO SedeDTO = logica.BuscarRegistro(id.Value);
+            if (SedeDTO == null)
             {
                 return HttpNotFound();
             }
             MapeadorSedeGUI mapper = new MapeadorSedeGUI();
-            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(tb_sede);
+            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(SedeDTO);
             return View(modelo);
         }
 
@@ -68,9 +68,9 @@ namespace InventarioUdC.GUI.Controllers
             if (ModelState.IsValid)
             {
                 MapeadorSedeGUI mapper = new MapeadorSedeGUI();
-                tb_sede tb_sede = mapper.MapearTipo2Tipo1(modelo);
+                SedeDTO SedeDTO = mapper.MapearTipo2Tipo1(modelo);
 
-                acceso.GuardarRegistro(tb_sede);
+                logica.GuardarRegistro(SedeDTO);
                 return RedirectToAction("Index");
             }
 
@@ -84,14 +84,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = acceso.BuscarRegistro(id.Value);
-            if (tb_sede == null)
+            SedeDTO SedeDTO = logica.BuscarRegistro(id.Value);
+            if (SedeDTO == null)
             {
                 return HttpNotFound();
             }
 
             MapeadorSedeGUI mapper = new MapeadorSedeGUI();
-            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(tb_sede);
+            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(SedeDTO);
             return View(modelo);
         }
 
@@ -106,9 +106,9 @@ namespace InventarioUdC.GUI.Controllers
             {
 
                 MapeadorSedeGUI mapper = new MapeadorSedeGUI();
-                tb_sede tb_sede = mapper.MapearTipo2Tipo1(modelo);
+                SedeDTO SedeDTO = mapper.MapearTipo2Tipo1(modelo);
 
-                acceso.EditarRegistro(tb_sede);
+                logica.EditarRegistro(SedeDTO);
                 return RedirectToAction("Index");
             }
             return View(modelo);
@@ -121,13 +121,13 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = acceso.BuscarRegistro(id.Value);
-            if (tb_sede == null)
+            SedeDTO SedeDTO = logica.BuscarRegistro(id.Value);
+            if (SedeDTO == null)
             {
                 return HttpNotFound();
             }
             MapeadorSedeGUI mapper = new MapeadorSedeGUI();
-            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(tb_sede);
+            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(SedeDTO);
             return View(modelo);
         }
 
@@ -136,17 +136,16 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            acceso.ELiminarRegistro(id);
-            return RedirectToAction("Index");
-            bool respuesta = acceso.ELiminarRegistro(id);
+            
+            bool respuesta = logica.EliminarRegistro(id);
             if (respuesta)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                tb_sede tb_sede = acceso.BuscarRegistro(id);
-                if (tb_sede == null)
+                SedeDTO SedeDTO = logica.BuscarRegistro(id);
+                if (SedeDTO == null)
                 {
                     return HttpNotFound();
                 }
@@ -154,7 +153,7 @@ namespace InventarioUdC.GUI.Controllers
                 MapeadorSedeGUI mapper = new MapeadorSedeGUI();
                 ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
 
-                ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(tb_sede);
+                ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(SedeDTO);
                 return View(modelo);
             }
         }

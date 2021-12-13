@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Data.Entity;
 using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.DbModel;
+using AccesoDeDatos.Mapeadores.Parametros;
+
 namespace AccesoDeDatos.Implementacion
 {
     public class ImplSedeDatos
@@ -15,18 +15,18 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="filtro">Filtro a aplicar</param>
         /// <returns>Lista con el filtro aplicado</returns>
-        public IEnumerable<tb_sede> ListarRegistros(string filtro, int paginaActual, int numRegistrosPorPagina, out int totalRegistros)
+        public IEnumerable<SedeDbModel> ListarRegistros(string filtro, int paginaActual, int numRegistrosPorPagina, out int totalRegistros)
         {
-            var lista = new List<tb_sede>();
+            var lista = new List<SedeDbModel>();
             using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
             {
                 int regDescartados = (paginaActual - 1) * numRegistrosPorPagina;
-                lista = (from m in bd.tb_sede
+               var listaDatos = (from m in bd.tb_sede
                          where m.nombre.Contains(filtro)
                          select m).ToList();
-                totalRegistros = lista.Count();
-                lista = lista.OrderBy(m => m.id).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
-
+                totalRegistros = listaDatos.Count();
+                listaDatos = listaDatos.OrderBy(m => m.id).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
+                lista = new MapeadorSedeDatos().MapearTipo1Tipo2(listaDatos).ToList();
 
             }
             return lista;
@@ -38,19 +38,22 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="registro"> el registro a almacenar </param>
         /// <returns>True cuando se almacena y false cuando ya existe el registro igual o una excepcion</returns>
-        public bool GuardarRegistro(tb_sede registro)
+        public bool GuardarRegistro(SedeDbModel registro)
         {
             try
             {
                 using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
                 {
                     //verificacion de la existencia de un registro con un mismo nombre
-                    if (bd.tb_sede.Where(x => x.nombre.ToLower().Equals(registro.nombre.ToLower())).Count() > 0)
+                    if (bd.tb_sede.Where(x => x.nombre.ToLower().Equals(registro.Nombre.ToLower())).Count() > 0)
                     {
                         return false;
                     }
 
-                    bd.tb_sede.Add(registro);
+                    MapeadorSedeDatos mapeador = new MapeadorSedeDatos();
+                    var reg = mapeador.MapearTipo2Tipo1(registro);
+
+                    bd.tb_sede.Add(reg);
                     bd.SaveChanges();
                     return true;
                 }
@@ -66,12 +69,12 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="id"> El id del registro a buscar</param>
         /// <returns>retorna el objeto con el id buscado o null cuando no existe    </returns>
-        public tb_sede BuscarRegistro(int id)
+        public SedeDbModel BuscarRegistro(int id)
         {
             using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
             {
                 tb_sede registro = bd.tb_sede.Find(id);
-                return registro;
+                return new MapeadorSedeDatos().MapearTipo1Tipo2(registro);
             }
         }
 
@@ -84,19 +87,22 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="registro"> el registro a editar </param>
         /// <returns>True cuando se edita y false cuando no exite el registro igual o una excepcion</returns>
-        public bool EditarRegistro(tb_sede registro)
+        public bool EditarRegistro(SedeDbModel registro)
         {
             try
             {
                 using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
                 {
                     //verificacion de la existencia de un registro con un mismo id
-                    if (bd.tb_sede.Where(x => x.id == registro.id).Count() == 0)
+                    if (bd.tb_sede.Where(x => x.id == registro.Id).Count() == 0)
                     {
                         return false;
                     }
 
-                    bd.Entry(registro).State = EntityState.Modified;
+                    MapeadorSedeDatos mapeador = new MapeadorSedeDatos();
+                    var reg = mapeador.MapearTipo2Tipo1(registro);
+
+                    bd.Entry(reg).State = EntityState.Modified;
                     bd.SaveChanges();
                     return true;
                 }

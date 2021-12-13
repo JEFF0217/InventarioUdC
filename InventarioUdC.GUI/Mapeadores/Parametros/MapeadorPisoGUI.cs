@@ -1,26 +1,23 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-using AccesoDeDatos.ModeloDeDatos;
+using LogicaNegocio.DTO;
 using InventarioUdC.GUI.Models;
 
 namespace InventarioUdC.GUI.Mapeadores.Parametros
 {
-    public class MapeadorPisoGUI : MapeadorBaseGUI<tb_piso, ModeloPisoGUI>
+    public class MapeadorPisoGUI : MapeadorBaseGUI<PisoDTO, ModeloPisoGUI>
     {
-        public override ModeloPisoGUI MapearTipo1Tipo2(tb_piso entrada)
+        public override ModeloPisoGUI MapearTipo1Tipo2(PisoDTO entrada)
         {
             return new ModeloPisoGUI()
             {
-                Id = entrada.id,
-                Nombre = entrada.nombre,
-                Id_edificio = entrada.id_edificio
+                Id = entrada.Id,
+                Nombre = entrada.Nombre,
+                Id_edificio = entrada.Id_edificio
             };
         }
 
-        public override IEnumerable<ModeloPisoGUI> MapearTipo1Tipo2(IEnumerable<tb_piso> entrada)
+        public override IEnumerable<ModeloPisoGUI> MapearTipo1Tipo2(IEnumerable<PisoDTO> entrada)
         {
             foreach (var item in entrada)
             {
@@ -28,17 +25,17 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
             }
         }
 
-        public override tb_piso MapearTipo2Tipo1(ModeloPisoGUI entrada)
+        public override PisoDTO MapearTipo2Tipo1(ModeloPisoGUI entrada)
         {
-            return new tb_piso()
+            return new PisoDTO()
             {
-                id = entrada.Id,
-                nombre = entrada.Nombre,
-                id_edificio = entrada.Id_edificio
+                Id = entrada.Id,
+                Nombre = entrada.Nombre,
+                Id_edificio = entrada.Id_edificio
             };
         }
 
-        public override IEnumerable<tb_piso> MapearTipo2Tipo1(IEnumerable<ModeloPisoGUI> entrada)
+        public override IEnumerable<PisoDTO> MapearTipo2Tipo1(IEnumerable<ModeloPisoGUI> entrada)
         {
             foreach (var item in entrada)
             {

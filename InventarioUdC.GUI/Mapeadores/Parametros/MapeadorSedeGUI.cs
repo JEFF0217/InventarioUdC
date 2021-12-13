@@ -1,25 +1,23 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AccesoDeDatos.ModeloDeDatos;
+using LogicaNegocio.DTO;
 using InventarioUdC.GUI.Models;
 
 namespace InventarioUdC.GUI.Mapeadores.Parametros
 {
-    public class MapeadorSedeGUI : MapeadorBaseGUI<tb_sede, ModeloSedeGUI>
+    public class MapeadorSedeGUI : MapeadorBaseGUI<SedeDTO, ModeloSedeGUI>
     {
-        public override ModeloSedeGUI MapearTipo1Tipo2(tb_sede entrada)
+        public override ModeloSedeGUI MapearTipo1Tipo2(SedeDTO entrada)
         {
             return new ModeloSedeGUI()
             {
-                Id = entrada.id,
-                Nombre = entrada.nombre,
-                Direccion = entrada.direccion
+                Id = entrada.Id,
+                Nombre = entrada.Nombre,
+                Direccion = entrada.Direccion
             };
         }
 
-        public override IEnumerable<ModeloSedeGUI> MapearTipo1Tipo2(IEnumerable<tb_sede> entrada)
+        public override IEnumerable<ModeloSedeGUI> MapearTipo1Tipo2(IEnumerable<SedeDTO> entrada)
         {
             foreach (var item in entrada)
             {
@@ -27,17 +25,17 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
             }
         }
 
-        public override tb_sede MapearTipo2Tipo1(ModeloSedeGUI entrada)
+        public override SedeDTO MapearTipo2Tipo1(ModeloSedeGUI entrada)
         {
-            return new tb_sede()
+            return new SedeDTO()
             {
-                id = entrada.Id,
-                nombre = entrada.Nombre,
-                direccion = entrada.Direccion
+                Id = entrada.Id,
+                Nombre = entrada.Nombre,
+                Direccion = entrada.Direccion
             };
         }
 
-        public override IEnumerable<tb_sede> MapearTipo2Tipo1(IEnumerable<ModeloSedeGUI> entrada)
+        public override IEnumerable<SedeDTO> MapearTipo2Tipo1(IEnumerable<ModeloSedeGUI> entrada)
         {
             foreach (var item in entrada)
             {

@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using AccesoDeDatos.ModeloDeDatos;
-using AccesoDeDatos.Implementacion;
-
 using InventarioUdC.GUI.Mapeadores.Parametros;
 using InventarioUdC.GUI.Models;
 using InventarioUdC.GUI.Helpers;
 using PagedList;
+using LogicaNegocio.Implementacion;
+using LogicaNegocio.DTO;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class TipoProductoController : Controller
     {
-        private ImplTipoProductoDatos acceso = new ImplTipoProductoDatos();
+        private ImplTipoProductoLogica logica = new ImplTipoProductoLogica();
 
         // GET: TipoProducto
         public ActionResult Index(int? page, string filtro = "")
@@ -27,7 +22,7 @@ namespace InventarioUdC.GUI.Controllers
             int totalRegistros;
             int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
 
-            IEnumerable<tb_tipo_producto> listaDatos = acceso.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
+            IEnumerable<TipoProductoDTO> listaDatos = logica.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
             MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
             IEnumerable<ModeloTipoProductoGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
 
@@ -43,13 +38,13 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_tipo_producto tb_tipo_producto = acceso.BuscarRegistro(id.Value);
-            if (tb_tipo_producto == null)
+            TipoProductoDTO TipoProductoDTO = logica.BuscarRegistro(id.Value);
+            if (TipoProductoDTO == null)
             {
                 return HttpNotFound();
             }
             MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
-            ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(tb_tipo_producto);
+            ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(TipoProductoDTO);
             return View(modelo);
         }
 
@@ -69,9 +64,9 @@ namespace InventarioUdC.GUI.Controllers
             if (ModelState.IsValid)
             {
                 MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
-                tb_tipo_producto tb_tipo_producto = mapper.MapearTipo2Tipo1(modelo);
+                TipoProductoDTO TipoProductoDTO = mapper.MapearTipo2Tipo1(modelo);
 
-                acceso.GuardarRegistro(tb_tipo_producto);
+                logica.GuardarRegistro(TipoProductoDTO);
                 return RedirectToAction("Index");
             }
 
@@ -85,14 +80,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_tipo_producto tb_tipo_producto = acceso.BuscarRegistro(id.Value);
-            if (tb_tipo_producto == null)
+            TipoProductoDTO TipoProductoDTO = logica.BuscarRegistro(id.Value);
+            if (TipoProductoDTO == null)
             {
                 return HttpNotFound();
             }
 
             MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
-            ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(tb_tipo_producto);
+            ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(TipoProductoDTO);
             return View(modelo);
         }
 
@@ -107,9 +102,9 @@ namespace InventarioUdC.GUI.Controllers
             {
 
                 MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
-                tb_tipo_producto tb_tipo_producto = mapper.MapearTipo2Tipo1(modelo);
+                TipoProductoDTO TipoProductoDTO = mapper.MapearTipo2Tipo1(modelo);
 
-                acceso.EditarRegistro(tb_tipo_producto);
+                logica.EditarRegistro(TipoProductoDTO);
                 return RedirectToAction("Index");
             }
             return View(modelo);
@@ -122,13 +117,13 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_tipo_producto tb_tipo_producto = acceso.BuscarRegistro(id.Value);
-            if (tb_tipo_producto == null)
+            TipoProductoDTO TipoProductoDTO = logica.BuscarRegistro(id.Value);
+            if (TipoProductoDTO == null)
             {
                 return HttpNotFound();
             }
             MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
-            ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(tb_tipo_producto);
+            ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(TipoProductoDTO);
             return View(modelo);
         }
 
@@ -138,15 +133,15 @@ namespace InventarioUdC.GUI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
 
-            bool respuesta = acceso.ELiminarRegistro(id);
+            bool respuesta = logica.EliminarRegistro(id);
             if (respuesta)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                tb_tipo_producto tb_tipo_producto = acceso.BuscarRegistro(id);
-                if (tb_tipo_producto == null)
+                TipoProductoDTO TipoProductoDTO = logica.BuscarRegistro(id);
+                if (TipoProductoDTO == null)
                 {
                     return HttpNotFound();
                 }
@@ -154,7 +149,7 @@ namespace InventarioUdC.GUI.Controllers
                 MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
                 ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
 
-                ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(tb_tipo_producto);
+                ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(TipoProductoDTO);
                 return View(modelo);
             }
         }

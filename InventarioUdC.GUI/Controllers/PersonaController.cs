@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using AccesoDeDatos.ModeloDeDatos;
-using AccesoDeDatos.Implementacion;
 using InventarioUdC.GUI.Mapeadores.Parametros;
 using InventarioUdC.GUI.Models;
 using InventarioUdC.GUI.Helpers;
 using PagedList;
+using LogicaNegocio.DTO;
+using LogicaNegocio.Implementacion;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class PersonaController : Controller
     {
-        private ImplPersonaDatos acceso = new ImplPersonaDatos();
+        private ImplPersonaLogica logica = new ImplPersonaLogica();
 
         // GET: Persona
         public ActionResult Index(int? page, string filtro = "")
@@ -26,7 +22,7 @@ namespace InventarioUdC.GUI.Controllers
             int totalRegistros;
             int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
 
-            IEnumerable<tb_persona> listaDatos = acceso.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
+            IEnumerable<PersonaDTO> listaDatos = logica.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
             MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
             IEnumerable<ModeloPersonaGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
 
@@ -42,13 +38,13 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_persona tb_persona = acceso.BuscarRegistro(id.Value);
-            if (tb_persona == null)
+            PersonaDTO PersonaDTO = logica.BuscarRegistro(id.Value);
+            if (PersonaDTO == null)
             {
                 return HttpNotFound();
             }
             MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
-            ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(tb_persona);
+            ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(PersonaDTO);
             return View(modelo);
         }
 
@@ -68,9 +64,9 @@ namespace InventarioUdC.GUI.Controllers
             if (ModelState.IsValid)
             {
                 MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
-                tb_persona tb_persona = mapper.MapearTipo2Tipo1(modelo);
+                PersonaDTO PersonaDTO = mapper.MapearTipo2Tipo1(modelo);
 
-                acceso.GuardarRegistro(tb_persona);
+                logica.GuardarRegistro(PersonaDTO);
                 return RedirectToAction("Index");
             }
 
@@ -84,14 +80,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_persona tb_persona = acceso.BuscarRegistro(id.Value);
-            if (tb_persona == null)
+            PersonaDTO PersonaDTO = logica.BuscarRegistro(id.Value);
+            if (PersonaDTO == null)
             {
                 return HttpNotFound();
             }
 
             MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
-            ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(tb_persona);
+            ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(PersonaDTO);
             return View(modelo);
         }
 
@@ -106,9 +102,9 @@ namespace InventarioUdC.GUI.Controllers
             {
 
                 MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
-                tb_persona tb_persona = mapper.MapearTipo2Tipo1(modelo);
+                PersonaDTO PersonaDTO = mapper.MapearTipo2Tipo1(modelo);
 
-                acceso.EditarRegistro(tb_persona);
+                logica.EditarRegistro(PersonaDTO);
                 return RedirectToAction("Index");
             }
             return View(modelo);
@@ -121,13 +117,13 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_persona tb_persona = acceso.BuscarRegistro(id.Value);
-            if (tb_persona == null)
+            PersonaDTO PersonaDTO = logica.BuscarRegistro(id.Value);
+            if (PersonaDTO == null)
             {
                 return HttpNotFound();
             }
             MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
-            ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(tb_persona);
+            ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(PersonaDTO);
             return View(modelo);
         }
 
@@ -136,15 +132,15 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            bool respuesta = acceso.ELiminarRegistro(id);
+            bool respuesta = logica.EliminarRegistro(id);
             if (respuesta)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                tb_persona tb_persona = acceso.BuscarRegistro(id);
-                if (tb_persona == null)
+                PersonaDTO PersonaDTO = logica.BuscarRegistro(id);
+                if (PersonaDTO == null)
                 {
                     return HttpNotFound();
                 }
@@ -152,7 +148,7 @@ namespace InventarioUdC.GUI.Controllers
                 MapeadorPersonaGUI mapper = new MapeadorPersonaGUI();
                 ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
 
-                ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(tb_persona);
+                ModeloPersonaGUI modelo = mapper.MapearTipo1Tipo2(PersonaDTO);
                 return View(modelo);
             }
         }

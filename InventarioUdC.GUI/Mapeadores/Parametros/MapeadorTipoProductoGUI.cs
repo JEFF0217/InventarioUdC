@@ -1,24 +1,21 @@
-﻿using AccesoDeDatos.ModeloDeDatos;
-using InventarioUdC.GUI.Models;
-using System;
+﻿using InventarioUdC.GUI.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using LogicaNegocio.DTO;
 
 namespace InventarioUdC.GUI.Mapeadores.Parametros
 {
-    public class MapeadorTipoProductoGUI : MapeadorBaseGUI<tb_tipo_producto, ModeloTipoProductoGUI>
+    public class MapeadorTipoProductoGUI : MapeadorBaseGUI<TipoProductoDTO, ModeloTipoProductoGUI>
     {
-        public override ModeloTipoProductoGUI MapearTipo1Tipo2(tb_tipo_producto entrada)
+        public override ModeloTipoProductoGUI MapearTipo1Tipo2(TipoProductoDTO entrada)
         {
             return new ModeloTipoProductoGUI()
             {
-                Id = entrada.id,
-                Nombre = entrada.nombre
+                Id = entrada.Id,
+                Nombre = entrada.Nombre
             };
         }
 
-        public override IEnumerable<ModeloTipoProductoGUI> MapearTipo1Tipo2(IEnumerable<tb_tipo_producto> entrada)
+        public override IEnumerable<ModeloTipoProductoGUI> MapearTipo1Tipo2(IEnumerable<TipoProductoDTO> entrada)
         {
             foreach (var item in entrada)
             {
@@ -26,16 +23,16 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
             }
         }
 
-        public override tb_tipo_producto MapearTipo2Tipo1(ModeloTipoProductoGUI entrada)
+        public override TipoProductoDTO MapearTipo2Tipo1(ModeloTipoProductoGUI entrada)
         {
-            return new tb_tipo_producto()
+            return new TipoProductoDTO()
             {
-                id = entrada.Id,
-                nombre = entrada.Nombre
+                Id = entrada.Id,
+                Nombre = entrada.Nombre
             };
         }
 
-        public override IEnumerable<tb_tipo_producto> MapearTipo2Tipo1(IEnumerable<ModeloTipoProductoGUI> entrada)
+        public override IEnumerable<TipoProductoDTO> MapearTipo2Tipo1(IEnumerable<ModeloTipoProductoGUI> entrada)
         {
             foreach (var item in entrada)
             {

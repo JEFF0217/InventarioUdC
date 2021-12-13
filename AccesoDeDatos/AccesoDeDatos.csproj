@@ -50,6 +50,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbModel\CategoriaDbModel.cs" />
+    <Compile Include="DbModel\EdificioDbModel.cs" />
+    <Compile Include="DbModel\EspacioDbModel.cs" />
+    <Compile Include="DbModel\FotosDbModel.cs" />
+    <Compile Include="DbModel\MarcaDbModel.cs" />
+    <Compile Include="DbModel\PersonaDbModel.cs" />
+    <Compile Include="DbModel\PisoDbModel.cs" />
+    <Compile Include="DbModel\ProductoDbModel.cs" />
+    <Compile Include="DbModel\SedeDbModel.cs" />
+    <Compile Include="DbModel\TipoProductoDbModel.cs" />
     <Compile Include="Implementacion\ImplTipoProductoDatos.cs" />
     <Compile Include="Implementacion\ImplSedeDatos.cs" />
     <Compile Include="Implementacion\ImplProductoDatos.cs" />
@@ -60,6 +70,17 @@
     <Compile Include="Implementacion\ImplEspacioDatos.cs" />
     <Compile Include="Implementacion\ImplEdificioDatos.cs" />
     <Compile Include="Implementacion\ImplCategoriaDatos.cs" />
+    <Compile Include="Mapeadores\MapeadorBaseDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorCategoriaDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorEdificioDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorEspacioDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorFotosDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorMarcaDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorPersonaDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorPisoDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorProductoDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorSedeDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorTipoProductoDatos.cs" />
     <Compile Include="ModeloDeDatos\ModeloInventario.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -135,5 +156,6 @@
       <LastGenOutput>ModeloInventario.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

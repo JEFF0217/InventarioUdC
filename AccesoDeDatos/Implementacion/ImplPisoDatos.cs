@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Data.Entity;
 using AccesoDeDatos.ModeloDeDatos;
+using AccesoDeDatos.DbModel;
+using AccesoDeDatos.Mapeadores.Parametros;
 
 namespace AccesoDeDatos.Implementacion
 {
@@ -16,18 +15,18 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="filtro">Filtro a aplicar</param>
         /// <returns>Lista con el filtro aplicado</returns>
-        public IEnumerable<tb_piso> ListarRegistros(string filtro, int paginaActual, int numRegistrosPorPagina, out int totalRegistros)
+        public IEnumerable<PisoDbModel> ListarRegistros(string filtro, int paginaActual, int numRegistrosPorPagina, out int totalRegistros)
         {
-            var lista = new List<tb_piso>();
+            var lista = new List<PisoDbModel>();
             using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
             {
                 int regDescartados = (paginaActual - 1) * numRegistrosPorPagina;
-                lista = (from m in bd.tb_piso
-                         where m.nombre.Contains(filtro)
-                         select m).ToList();
-                totalRegistros = lista.Count();
-                lista = lista.OrderBy(m => m.id).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
-
+                var listaDatos = (from m in bd.tb_piso
+                                  where m.nombre.Contains(filtro)
+                                  select m).ToList();
+                totalRegistros = listaDatos.Count();
+                listaDatos = listaDatos.OrderBy(m => m.id).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
+                lista = new MapeadorPisoDatos().MapearTipo1Tipo2(listaDatos).ToList();
 
             }
             return lista;
@@ -39,19 +38,22 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="registro"> el registro a almacenar </param>
         /// <returns>True cuando se almacena y false cuando ya existe el registro igual o una excepcion</returns>
-        public bool GuardarRegistro(tb_piso registro)
+        public bool GuardarRegistro(PisoDbModel registro)
         {
             try
             {
                 using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
                 {
                     //verificacion de la existencia de un registro con un mismo nombre
-                    if (bd.tb_piso.Where(x => x.nombre.ToLower().Equals(registro.nombre.ToLower())).Count() > 0)
+                    if (bd.tb_piso.Where(x => x.nombre.ToLower().Equals(registro.Nombre.ToLower())).Count() > 0)
                     {
                         return false;
                     }
 
-                    bd.tb_piso.Add(registro);
+                    MapeadorPisoDatos mapeador = new MapeadorPisoDatos();
+                    var reg = mapeador.MapearTipo2Tipo1(registro);
+
+                    bd.tb_piso.Add(reg);
                     bd.SaveChanges();
                     return true;
                 }
@@ -67,12 +69,12 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="id"> El id del registro a buscar</param>
         /// <returns>retorna el objeto con el id buscado o null cuando no existe    </returns>
-        public tb_piso BuscarRegistro(int id)
+        public PisoDbModel BuscarRegistro(int id)
         {
             using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
             {
                 tb_piso registro = bd.tb_piso.Find(id);
-                return registro;
+                return new MapeadorPisoDatos().MapearTipo1Tipo2(registro); ;
             }
         }
 
@@ -85,19 +87,21 @@ namespace AccesoDeDatos.Implementacion
         /// </summary>
         /// <param name="registro"> el registro a editar </param>
         /// <returns>True cuando se edita y false cuando no exite el registro igual o una excepcion</returns>
-        public bool EditarRegistro(tb_piso registro)
+        public bool EditarRegistro(PisoDbModel registro)
         {
             try
             {
                 using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
                 {
                     //verificacion de la existencia de un registro con un mismo id
-                    if (bd.tb_piso.Where(x => x.id == registro.id).Count() == 0)
+                    if (bd.tb_piso.Where(x => x.id == registro.Id).Count() == 0)
                     {
                         return false;
                     }
+                    MapeadorPisoDatos mapeador = new MapeadorPisoDatos();
+                    var reg = mapeador.MapearTipo2Tipo1(registro);
 
-                    bd.Entry(registro).State = EntityState.Modified;
+                    bd.Entry(reg).State = EntityState.Modified;
                     bd.SaveChanges();
                     return true;
                 }

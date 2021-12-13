@@ -1,26 +1,25 @@
-﻿using AccesoDeDatos.ModeloDeDatos;
+﻿
 using InventarioUdC.GUI.Models;
-using System;
+using LogicaNegocio.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+
 
 namespace InventarioUdC.GUI.Mapeadores.Parametros
 {
-    public class MapeadorEdificioGUI : MapeadorBaseGUI<tb_edificio, ModeloEdificioGUI>
+    public class MapeadorEdificioGUI : MapeadorBaseGUI<EdificioDTO, ModeloEdificioGUI>
     {
-        public override ModeloEdificioGUI MapearTipo1Tipo2(tb_edificio entrada)
+        public override ModeloEdificioGUI MapearTipo1Tipo2(EdificioDTO entrada)
         {
             return new ModeloEdificioGUI()
             {
-                Id = entrada.id,
-                Nombre = entrada.nombre,
-                Id_Sede = entrada.id_sede
+                Id = entrada.Id,
+                Nombre = entrada.Nombre,
+                Id_Sede = entrada.Id_Sede
               
             };
         }
 
-        public override IEnumerable<ModeloEdificioGUI> MapearTipo1Tipo2(IEnumerable<tb_edificio> entrada)
+        public override IEnumerable<ModeloEdificioGUI> MapearTipo1Tipo2(IEnumerable<EdificioDTO> entrada)
         {
             foreach (var item in entrada)
             {
@@ -28,17 +27,17 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
             }
         }
 
-        public override tb_edificio MapearTipo2Tipo1(ModeloEdificioGUI entrada)
+        public override EdificioDTO MapearTipo2Tipo1(ModeloEdificioGUI entrada)
         {
-            return new tb_edificio()
+            return new EdificioDTO()
             {
-                id = entrada.Id,
-                nombre = entrada.Nombre,
-                id_sede = entrada.Id_Sede
+                Id = entrada.Id,
+                Nombre = entrada.Nombre,
+                Id_Sede = entrada.Id_Sede
             };
         }
 
-        public override IEnumerable<tb_edificio> MapearTipo2Tipo1(IEnumerable<ModeloEdificioGUI> entrada)
+        public override IEnumerable<EdificioDTO> MapearTipo2Tipo1(IEnumerable<ModeloEdificioGUI> entrada)
         {
             foreach (var item in entrada)
             {
