@@ -14,7 +14,8 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
             {
                 Id = entrada.Id,
                 Nombre = entrada.Nombre,
-                Id_piso = entrada.Id_piso
+                Id_piso = entrada.Id_piso,
+                PisoNombre = entrada.PisoNombre
                 
             };
         }

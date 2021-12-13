@@ -31,6 +31,15 @@ namespace LogicaNegocio.DTO
         }
 
 
+        private string pisoNombre;
+
+        public string PisoNombre
+        {
+            get { return pisoNombre; }
+            set { pisoNombre = value; }
+        }
+
+
 
 
         private IEnumerable<PisoDTO> listaPiso;

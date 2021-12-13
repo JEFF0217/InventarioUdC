@@ -38,5 +38,13 @@ namespace LogicaNegocio.DTO
             get { return listaEdificio; }
             set { listaEdificio = value; }
         }
+
+        private string edificioNombre;
+
+        public string EdificioNombre
+        {
+            get { return edificioNombre; }
+            set { edificioNombre = value; }
+        }
     }
 }

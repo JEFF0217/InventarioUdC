@@ -140,6 +140,25 @@ namespace AccesoDeDatos.Implementacion
                 throw e;
             }
         }
+
+        public IEnumerable<EspacioDbModel> ListarRegistros()
+        {
+            var lista = new List<EspacioDbModel>();
+
+            using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
+            {
+
+                //lista = bd.tb_marca.Where(x => x.nombre.Contains(filtro)).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
+                var listaDatos = (from m in bd.tb_espacio
+
+                                  select m).ToList();
+
+
+                lista = new MapeadorEspacioDatos().MapearTipo1Tipo2(listaDatos).ToList();
+            }
+            return lista;
+
+        }
     }
 }
 

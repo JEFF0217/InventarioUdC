@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -29,6 +30,42 @@ namespace InventarioUdC.GUI.Models
             get { return fecha_registro; }
             set { fecha_registro = value; }
         }
+
+        private string espacioNombre;
+        [DisplayName("Nombre de espacio")]
+        public string EspacioNombre
+        {
+            get { return espacioNombre; }
+            set { espacioNombre = value; }
+        }
+
+
+        private string marcaNombre  ;
+        [DisplayName("Nombre de la marca")]
+        public string MarcaNombre
+        {
+            get { return marcaNombre; }
+            set { marcaNombre = value; }
+        }
+
+        private string personaPrimerNombre;
+
+
+        [DisplayName("Nombre de la persona")]
+        public string PersonaPrimerNombre
+        {
+            get { return personaPrimerNombre; }
+            set { personaPrimerNombre = value; }
+        }
+        private string tipoProductoNombre;
+        [DisplayName("Tipo de producto")]
+        public string TipoProductoNombre
+        {
+            get { return tipoProductoNombre; }
+            set { tipoProductoNombre = value; }
+        }
+
+
 
         private string serial;
 

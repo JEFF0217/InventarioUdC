@@ -20,7 +20,12 @@ namespace AccesoDeDatos.Mapeadores.Parametros
                 Id_tipo_producto = entrada.id_tipo_producto,
                 Id_espacio = entrada.id_espacio,
                 Id_marca = entrada.id_marca,
-                Id_persona = entrada.id_persona
+                Id_persona = entrada.id_persona,
+                EspacioNombre = entrada.tb_espacio.nombre,
+                MarcaNombre= entrada.tb_marca.nombre,
+                PersonaPrimerNombre = entrada.tb_persona.primer_nombre,
+                TipoProductoNombre = entrada.tb_tipo_producto.nombre
+
                
             };
         }

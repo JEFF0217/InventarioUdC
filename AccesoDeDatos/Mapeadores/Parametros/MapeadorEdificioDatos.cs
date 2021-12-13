@@ -13,7 +13,9 @@ namespace AccesoDeDatos.Mapeadores.Parametros
             {
                 Id = entrada.id,
                 Nombre = entrada.nombre,
-                Id_Sede = entrada.id_sede
+                Id_Sede = entrada.id_sede,
+                SedeNombre= entrada.tb_sede.nombre
+                
               
             };
         }

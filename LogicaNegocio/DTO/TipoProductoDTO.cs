@@ -24,5 +24,6 @@ namespace LogicaNegocio.DTO
             set { nombre = value; }
         }
 
+
     }
 }

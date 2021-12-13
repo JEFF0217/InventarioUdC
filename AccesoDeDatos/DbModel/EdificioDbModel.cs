@@ -34,5 +34,13 @@ namespace AccesoDeDatos.DbModel
             get { return listaSede; }
             set { listaSede = value; }
         }
+
+        private string sedeNombre;
+
+        public string SedeNombre
+        {
+            get { return sedeNombre; }
+            set { sedeNombre = value; }
+        }
     }
 }

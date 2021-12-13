@@ -20,7 +20,12 @@ namespace LogicaNegocio.Mapeadores.Parametros
                 Id_tipo_producto = entrada.Id_tipo_producto,
                 Id_espacio = entrada.Id_espacio,
                 Id_marca = entrada.Id_marca,
-                Id_persona = entrada.Id_persona
+                Id_persona = entrada.Id_persona,
+                MarcaNombre = entrada.MarcaNombre,
+                TipoProductoNombre = entrada.TipoProductoNombre,
+                EspacioNombre = entrada.EspacioNombre,
+                PersonaPrimerNombre = entrada.PersonaPrimerNombre
+
                
             };
         }

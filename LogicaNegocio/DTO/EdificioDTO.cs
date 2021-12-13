@@ -29,7 +29,13 @@ namespace LogicaNegocio.DTO
             get { return id_sede; }
             set { id_sede = value; }
         }
+        private string sedeNombre;
 
+        public string SedeNombre
+        {
+            get { return sedeNombre; }
+            set { sedeNombre = value; }
+        }
 
         private IEnumerable<SedeDTO> listaSede;
 

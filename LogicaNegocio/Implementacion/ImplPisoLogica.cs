@@ -66,5 +66,13 @@ namespace LogicaNegocio.Implementacion
             Boolean res = this.accesoDatos.ELiminarRegistro(id);
             return res;
         }
+
+        public IEnumerable<PisoDTO> ListarRegistros()
+        {
+            var listado = this.accesoDatos.ListarRegistros();
+
+            MapeadorPisoLogica mapeador = new MapeadorPisoLogica();
+            return mapeador.MapearTipo1Tipo2(listado);
+        }
     }
 }

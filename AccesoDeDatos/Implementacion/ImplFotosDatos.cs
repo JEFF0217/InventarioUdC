@@ -143,6 +143,25 @@ namespace AccesoDeDatos.Implementacion
                 throw e;
             }
         }
+
+        public IEnumerable<FotosDbModel> ListarRegistros()
+        {
+            var lista = new List<FotosDbModel>();
+
+            using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
+            {
+
+                //lista = bd.tb_marca.Where(x => x.nombre.Contains(filtro)).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
+                var listaDatos = (from m in bd.tb_fotos
+
+                                  select m).ToList();
+
+
+                lista = new MapeadorFotosDatos().MapearTipo1Tipo2(listaDatos).ToList();
+            }
+            return lista;
+
+        }
     }
 }
 

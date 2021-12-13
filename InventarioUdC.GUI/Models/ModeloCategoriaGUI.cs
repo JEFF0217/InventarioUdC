@@ -19,6 +19,7 @@ namespace InventarioUdC.GUI.Models
 
         
         private string nombre;
+      
         [Required]
         public string Nombre
         {

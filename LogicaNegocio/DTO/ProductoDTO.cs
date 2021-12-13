@@ -73,6 +73,39 @@ namespace LogicaNegocio.DTO
             set { listaTipoProducto = value; }
         }
 
+        private string espacioNombre;
+
+        public string EspacioNombre
+        {
+            get { return espacioNombre; }
+            set { espacioNombre = value; }
+        }
+
+
+        private string marcaNombre;
+
+        public string MarcaNombre
+        {
+            get { return marcaNombre; }
+            set { marcaNombre = value; }
+        }
+
+        private string personaPrimerNombre;
+
+        public string PersonaPrimerNombre
+        {
+            get { return personaPrimerNombre; }
+            set { personaPrimerNombre = value; }
+        }
+        private string tipoProductoNombre;
+
+        public string TipoProductoNombre
+        {
+            get { return tipoProductoNombre; }
+            set { tipoProductoNombre = value; }
+        }
+
+
 
         private int id_persona;
 

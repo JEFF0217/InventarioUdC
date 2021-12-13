@@ -29,6 +29,13 @@ namespace AccesoDeDatos.DbModel
             get { return id_piso; }
             set { id_piso = value; }
         }
+        private string pisoNombre;
+
+        public string PisoNombre
+        {
+            get { return pisoNombre; }
+            set { pisoNombre = value; }
+        }
 
 
 

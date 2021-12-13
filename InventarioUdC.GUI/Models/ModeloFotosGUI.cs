@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +22,16 @@ namespace InventarioUdC.GUI.Models
             get { return nombre; }
             set { nombre = value; }
         }
+
+
+        private string productoNombre;
+        [DisplayName("Nombre del producto")]
+        public string ProductoNombre
+        {
+            get { return productoNombre; }
+            set { productoNombre = value; }
+        }
+
         private int id_producto;
 
         public int Id_producto

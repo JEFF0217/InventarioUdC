@@ -29,7 +29,13 @@ namespace LogicaNegocio.DTO
             get { return id_producto; }
             set { id_producto = value; }
         }
+        private string productoNombre;
 
+        public string ProductoNombre
+        {
+            get { return productoNombre; }
+            set { productoNombre = value; }
+        }
 
 
         private IEnumerable<ProductoDTO> listaProducto;

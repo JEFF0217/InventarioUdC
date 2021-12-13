@@ -1,4 +1,4 @@
-﻿@model AccesoDeDatos.ModeloDeDatos.tb_fotos
+﻿@model InventarioUdC.GUI.Models.ModeloFotosGUI
 
 @{
     ViewBag.Title = "Delete";
@@ -16,19 +16,19 @@
     }
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayNameFor(model => model.Nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.nombre)
+            @Html.DisplayFor(model => model.Nombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tb_producto.nombre)
+            @Html.DisplayNameFor(model => model.ProductoNombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.tb_producto.nombre)
+            @Html.DisplayFor(model => model.ProductoNombre)
         </dd>
 
     </dl>

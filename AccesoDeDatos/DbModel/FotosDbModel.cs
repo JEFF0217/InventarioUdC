@@ -39,5 +39,14 @@ namespace AccesoDeDatos.DbModel
             get { return listaProducto; }
             set { listaProducto = value; }
         }
+
+
+        private string productoNombre;
+
+        public string ProductoNombre
+        {
+            get { return productoNombre; }
+            set { productoNombre = value; }
+        }
     }
 }

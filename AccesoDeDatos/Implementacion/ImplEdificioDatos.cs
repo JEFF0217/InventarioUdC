@@ -139,8 +139,25 @@ namespace AccesoDeDatos.Implementacion
             }
         }
 
-       
-       
+        public IEnumerable<EdificioDbModel> ListarRegistros()
+        {
+            var lista = new List<EdificioDbModel>();
+
+            using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
+            {
+
+                //lista = bd.tb_marca.Where(x => x.nombre.Contains(filtro)).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
+                var listaDatos = (from m in bd.tb_edificio  
+
+                                  select m).ToList();
+
+
+                lista = new MapeadorEdificioDatos().MapearTipo1Tipo2(listaDatos).ToList();
+            }
+            return lista;
+
+        }
+
     }
 }
 

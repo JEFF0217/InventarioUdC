@@ -24,5 +24,8 @@ namespace AccesoDeDatos.DbModel
             set { nombre = value; }
         }
 
+      
+
+
     }
 }

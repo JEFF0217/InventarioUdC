@@ -1,4 +1,4 @@
-﻿@model AccesoDeDatos.ModeloDeDatos.tb_producto
+﻿@model InventarioUdC.GUI.Models.ModeloProductoGUI
 
 @{
     ViewBag.Title = "Details";
@@ -11,64 +11,64 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayNameFor(model => model.Nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.nombre)
+            @Html.DisplayFor(model => model.Nombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.fecha_registro)
+            @Html.DisplayNameFor(model => model.Fecha_registro)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.fecha_registro)
+            @Html.DisplayFor(model => model.Fecha_registro)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.serieal)
+            @Html.DisplayNameFor(model => model.Serial)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.serieal)
+            @Html.DisplayFor(model => model.Serial)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tb_espacio.nombre)
+            @Html.DisplayNameFor(model => model.EspacioNombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.tb_espacio.nombre)
+            @Html.DisplayFor(model => model.EspacioNombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tb_marca.nombre)
+            @Html.DisplayNameFor(model => model.MarcaNombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.tb_marca.nombre)
+            @Html.DisplayFor(model => model.MarcaNombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tb_persona.primer_nombre)
+            @Html.DisplayNameFor(model => model.PersonaPrimerNombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.tb_persona.primer_nombre)
+            @Html.DisplayFor(model => model.PersonaPrimerNombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tb_tipo_producto.nombre)
+            @Html.DisplayNameFor(model => model.TipoProductoNombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.tb_tipo_producto.nombre)
+            @Html.DisplayFor(model => model.TipoProductoNombre)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

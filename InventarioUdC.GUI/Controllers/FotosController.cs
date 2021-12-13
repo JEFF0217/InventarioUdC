@@ -7,18 +7,37 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
+
+using LogicaNegocio.Implementacion;
+using InventarioUdC.GUI.Helpers;
+using LogicaNegocio.DTO;
+using InventarioUdC.GUI.Mapeadores.Parametros;
+using InventarioUdC.GUI.Models;
+using PagedList;
+
 namespace InventarioUdC.GUI.Controllers
 {
     public class FotosController : Controller
-    { /*
-        private InventarioUdCDBEntities acceso = new InventarioUdCDBEntities();
+    {
+        private ImplFotosLogica logica = new ImplFotosLogica();
 
         // GET: Fotos
-        public ActionResult Index()
+        public ActionResult Index(int? page, String filtro = "")
         {
-            var tb_fotos = acceso.tb_fotos.Include(t => t.tb_producto);
-            return View(tb_fotos.ToList());
+            int numPagina = page ?? 1;
+            int totalRegistros;
+            int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
+
+            IEnumerable<FotosDTO> listaDatos = logica.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
+            MapeadorFotosGUI mapper = new MapeadorFotosGUI();
+            IEnumerable<ModeloFotosGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+
+            // var registrosPagina = ListaGUI.ToPagedList(numPagina, registrosPorPagina);
+            var listaPagina = new StaticPagedList<ModeloFotosGUI>(ListaGUI, numPagina, registrosPorPagina, totalRegistros);
+            return View(listaPagina);
         }
+
+
 
         // GET: Fotos/Details/5
         public ActionResult Details(int? id)
@@ -27,37 +46,55 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_fotos tb_fotos = acceso.tb_fotos.Find(id);
-            if (tb_fotos == null)
+            FotosDTO FotosDTO = logica.BuscarRegistro(id.Value);
+            if (FotosDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_fotos);
+
+            MapeadorFotosGUI mapper = new MapeadorFotosGUI();
+            ModeloFotosGUI modelo = mapper.MapearTipo1Tipo2(FotosDTO);
+            return View(modelo);
         }
 
         // GET: Fotos/Create
         public ActionResult Create()
         {
-            ViewBag.id_producto = new SelectList(acceso.tb_producto, "id", "nombre");
-            return View();
+            IEnumerable<ModeloProductoGUI> listadoProductos = obtenerListadoProductos();
+            ModeloFotosGUI modelo = new ModeloFotosGUI();
+            modelo.ListaProducto = listadoProductos;
+
+            return View(modelo);
         }
+
+        private IEnumerable<ModeloProductoGUI> obtenerListadoProductos()
+        {
+            ImplProductoLogica sede = new ImplProductoLogica();
+            var listaProductos = sede.ListarRegistros();
+            MapeadorProductoGUI mapeador = new MapeadorProductoGUI();
+
+            var listado = mapeador.MapearTipo1Tipo2(listaProductos);
+            return listado;
+        }
+
 
         // POST: Fotos/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre,id_producto")] tb_fotos tb_fotos)
+        public ActionResult Create(ModeloFotosGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.tb_fotos.Add(tb_fotos);
-                acceso.SaveChanges();
+                MapeadorFotosGUI mapper = new MapeadorFotosGUI();
+                FotosDTO FotosDTO = mapper.MapearTipo2Tipo1(modelo);
+
+                logica.GuardarRegistro(FotosDTO);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_producto = new SelectList(acceso.tb_producto, "id", "nombre", tb_fotos.id_producto);
-            return View(tb_fotos);
+            return View(modelo);
         }
 
         // GET: Fotos/Edit/5
@@ -67,13 +104,16 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_fotos tb_fotos = acceso.tb_fotos.Find(id);
-            if (tb_fotos == null)
+            FotosDTO FotosDTO = logica.BuscarRegistro(id.Value);
+            if (FotosDTO == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_producto = new SelectList(acceso.tb_producto, "id", "nombre", tb_fotos.id_producto);
-            return View(tb_fotos);
+            IEnumerable<ModeloProductoGUI> listadoProductos = obtenerListadoProductos();
+            MapeadorFotosGUI mapper = new MapeadorFotosGUI();
+            ModeloFotosGUI modelo = mapper.MapearTipo1Tipo2(FotosDTO);
+            modelo.ListaProducto = listadoProductos;
+            return View(modelo);
         }
 
         // POST: Fotos/Edit/5
@@ -81,16 +121,17 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre,id_producto")] tb_fotos tb_fotos)
+        public ActionResult Edit(ModeloFotosGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                acceso.Entry(tb_fotos).State = EntityState.Modified;
-                acceso.SaveChanges();
+                MapeadorFotosGUI mapper = new MapeadorFotosGUI();
+                FotosDTO FotosDTO = mapper.MapearTipo2Tipo1(modelo);
+                logica.EditarRegistro(FotosDTO);
                 return RedirectToAction("Index");
             }
-            ViewBag.id_producto = new SelectList(acceso.tb_producto, "id", "nombre", tb_fotos.id_producto);
-            return View(tb_fotos);
+
+            return View(modelo);
         }
 
         // GET: Fotos/Delete/5
@@ -100,12 +141,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_fotos tb_fotos = acceso.tb_fotos.Find(id);
-            if (tb_fotos == null)
+            FotosDTO FotosDTO = logica.BuscarRegistro(id.Value);
+            if (FotosDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_fotos);
+            MapeadorFotosGUI mapper = new MapeadorFotosGUI();
+            ModeloFotosGUI modelo = mapper.MapearTipo1Tipo2(FotosDTO);
+            return View(modelo);
         }
 
         // POST: Fotos/Delete/5
@@ -113,19 +156,23 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_fotos tb_fotos = acceso.tb_fotos.Find(id);
-            acceso.tb_fotos.Remove(tb_fotos);
-            acceso.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            bool respuesta = logica.EliminarRegistro(id);
+            if (respuesta)
             {
-                acceso.Dispose();
+                return RedirectToAction("Index");
             }
-            base.Dispose(disposing);
-        }*/
+            else
+            {
+                FotosDTO FotosDTO = logica.BuscarRegistro(id);
+                if (FotosDTO == null)
+                {
+                    return HttpNotFound();
+                }
+                MapeadorFotosGUI mapper = new MapeadorFotosGUI();
+                ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
+                ModeloFotosGUI modelo = mapper.MapearTipo1Tipo2(FotosDTO);
+                return View(modelo);
+            }
+        }
     }
 }

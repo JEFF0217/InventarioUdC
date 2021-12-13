@@ -12,7 +12,8 @@ namespace LogicaNegocio.Mapeadores.Parametros
             {
                 Id = entrada.Id,
                 Nombre = entrada.Nombre,
-                Id_edificio = entrada.Id_edificio
+                Id_edificio = entrada.Id_edificio,
+                EdificioNombre = entrada.EdificioNombre
             };
         }
 

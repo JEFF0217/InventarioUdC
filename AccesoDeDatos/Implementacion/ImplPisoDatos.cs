@@ -142,6 +142,25 @@ namespace AccesoDeDatos.Implementacion
                 throw e;
             }
         }
+
+        public IEnumerable<PisoDbModel> ListarRegistros()
+        {
+            var lista = new List<PisoDbModel>();
+
+            using (InventarioUdCDBEntities bd = new InventarioUdCDBEntities())
+            {
+
+                //lista = bd.tb_marca.Where(x => x.nombre.Contains(filtro)).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();
+                var listaDatos = (from m in bd.tb_piso
+
+                                  select m).ToList();
+
+
+                lista = new MapeadorPisoDatos().MapearTipo1Tipo2(listaDatos).ToList();
+            }
+            return lista;
+
+        }
     }
 }
 
