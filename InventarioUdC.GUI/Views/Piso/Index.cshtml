@@ -6,10 +6,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista Piso</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuevo registro", "Create", new{}, new{@class="btn btn-success"})
 </p>
 <table class="table">
     <tr>
@@ -31,9 +31,9 @@
             @Html.DisplayFor(modelItem => item.EdificioNombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new{@class="btn btn-primary"})|
+            @Html.ActionLink("Details", "Details", new { id=item.Id }, new{@class="btn btn-warning"}) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new{@class="btn btn-danger"})
         </td>
     </tr>
 }
