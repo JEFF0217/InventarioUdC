@@ -40,13 +40,6 @@ namespace AccesoDeDatos.DbModel
             set { listaProducto = value; }
         }
 
-
-        private string productoNombre;
-
-        public string ProductoNombre
-        {
-            get { return productoNombre; }
-            set { productoNombre = value; }
-        }
+       
     }
 }

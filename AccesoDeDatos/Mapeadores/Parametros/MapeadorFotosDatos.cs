@@ -13,7 +13,6 @@ namespace AccesoDeDatos.Mapeadores.Parametros
                 Id = entrada.id,
                 Nombre = entrada.nombre,
                 Id_producto = entrada.id_producto,
-                ProductoNombre = entrada.tb_producto.nombre
             };
         }
 

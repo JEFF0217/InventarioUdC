@@ -30,6 +30,7 @@
     <EntitySetMapping Name="tb_fotos">
       <EntityTypeMapping TypeName="InventarioUdCDBModel.tb_fotos">
         <MappingFragment StoreEntitySet="tb_fotos">
+          <ScalarProperty Name="estado" ColumnName="estado" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="id_producto" ColumnName="id_producto" />

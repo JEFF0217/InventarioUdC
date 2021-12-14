@@ -24,13 +24,7 @@ namespace InventarioUdC.GUI.Models
         }
 
 
-        private string productoNombre;
-        [DisplayName("Nombre del producto")]
-        public string ProductoNombre
-        {
-            get { return productoNombre; }
-            set { productoNombre = value; }
-        }
+       
 
         private int id_producto;
 

@@ -14,7 +14,7 @@ namespace InventarioUdC.GUI.Mapeadores.Parametros
                 Id = entrada.Id,
                 Nombre = entrada.Nombre,
                 Id_producto = entrada.Id_producto,
-                ProductoNombre = entrada.ProductoNombre
+     
             };
         }
 

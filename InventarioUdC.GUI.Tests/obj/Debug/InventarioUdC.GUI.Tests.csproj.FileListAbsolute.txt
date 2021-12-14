@@ -1,3 +1,4 @@
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\InventarioUdC.GUI.Tests.csproj.CoreCompileInputs.cache
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
@@ -19,9 +20,12 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.WebPages.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.WebPages.Razor.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.Optimization.dll
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\EntityFramework.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\LogicaNegocio.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\PagedList.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\WebGrease.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\Antlr3.Runtime.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\EntityFramework.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\InventarioUdC.GUI.pdb
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\InventarioUdC.GUI.dll.config
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
@@ -34,8 +38,12 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.Optimization.xml
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\EntityFramework.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\LogicaNegocio.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\PagedList.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.dll.config
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\Antlr3.Runtime.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\EntityFramework.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\es\System.Web.Helpers.resources.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\es\System.Web.Mvc.resources.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\es\System.Web.Razor.resources.dll
@@ -44,14 +52,6 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\es\System.Web.WebPages.Razor.resources.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\es\System.Web.Optimization.resources.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\InventarioUdC.GUI.Tests.csproj.AssemblyReference.cache
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\InventarioUdC.GUI.Tests.csproj.CoreCompileInputs.cache
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\InventarioUdC.GUI.Tests.csproj.CopyComplete
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\InventarioUdC.GUI.Tests.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\obj\Debug\InventarioUdC.GUI.Tests.pdb
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.dll
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\PagedList.dll
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.pdb
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.dll.config
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\PagedList.xml
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\LogicaNegocio.dll
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\LogicaNegocio.pdb

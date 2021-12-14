@@ -11,6 +11,7 @@ using InventarioUdC.GUI.Models;
 using PagedList;
 using System.Collections.Generic;
 using System;
+using System.IO;
 
 namespace InventarioUdC.GUI.Controllers
 {
@@ -150,6 +151,10 @@ namespace InventarioUdC.GUI.Controllers
 
             MapeadorProductoGUI mapper = new MapeadorProductoGUI();
             ModeloProductoGUI modelo = mapper.MapearTipo1Tipo2(ProductoDTO);
+            modelo.ListaMarca = listadoMarcas;
+            modelo.ListaTipoProducto = listaTipoProductos;
+            modelo.ListaPersona = listadoPersonas;
+            modelo.ListaEspacio = listadoEspacio;
             return View(modelo);
         }
 
@@ -211,5 +216,96 @@ namespace InventarioUdC.GUI.Controllers
                 return View(modelo);
             }
         }
+      
+        [HttpGet]
+        public ActionResult UploadFile(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ModeloCargaImagenGUI modelo = CrearModeloCargarImagen(id);
+
+            return View(modelo);
+        }
+       
+       private ModeloCargaImagenGUI CrearModeloCargarImagen(int? id)
+       {
+           IEnumerable<FotosDTO> listaDto = logica.ListarFotosPorId(id.Value);
+           MapeadorFotosGUI mapeador = new MapeadorFotosGUI();
+           IEnumerable<ModeloFotosGUI> listaFotos = mapeador.MapearTipo1Tipo2(listaDto);
+           if (listaFotos == null)
+           {
+               listaFotos = new List<ModeloFotosGUI>();
+           }
+           ModeloCargaImagenGUI modelo = new ModeloCargaImagenGUI()
+           {
+               Id = id.Value,
+               ListadoImagenes = listaFotos
+           };
+           return modelo;
+       }
+
+     [HttpPost]
+     [ValidateAntiForgeryToken]
+     public ActionResult UploadFile(ModeloCargaImagenGUI modelo)
+     {
+         try
+         {
+             if (modelo.Archivo.ContentLength > 0)
+             {
+                 try
+                 {
+                     DateTime ahora = DateTime.Now;
+                     string fecha_nombre = String.Format("{0}_{1}_{2}_{3}_{4}_{5}", ahora.Day, ahora.Month, ahora.Year, ahora.Hour, ahora.Minute, ahora.Millisecond);
+                     string nombreArchivo = String.Concat(fecha_nombre, "_", Path.GetFileName(modelo.Archivo.FileName));
+                     string rutaCarpeta = DatosGenerales.RutaArchivos;
+                     string rutaCompletaArchivo = Path.Combine(Server.MapPath(rutaCarpeta), nombreArchivo);
+                     modelo.Archivo.SaveAs(rutaCompletaArchivo);
+                     FotosDTO dto = new FotosDTO()
+                     {
+                         Id_producto = modelo.Id,
+                         Nombre = nombreArchivo
+
+                         
+                     };
+                     logica.GuardarNombreFoto(dto);
+                     // guardar nombre de archivo en base de datos
+                     ViewBag.UploadFileMessage = "Archivo cargado correctamente.";
+
+                     ModeloCargaImagenGUI modeloView = CrearModeloCargarImagen(modelo.Id);
+                     return View(modeloView);
+                 }
+                 catch
+                 {
+                        
+                 }
+                    
+                }
+                ViewBag.UploadFileMessage = "Por favor seleccione al menos un archivo a cargar.";
+                return View();
+            }
+         catch (Exception e)
+         {
+             ViewBag.UploadFileMessage = "Error al cargar el archivo.";
+             return View();
+         }
+     }
+
+
+
+     public ActionResult EliminarFoto(int idFoto, string nombreFoto)
+     {
+         bool respuesta = logica.EliminarRegistroFoto(idFoto);
+         if (respuesta)
+         {
+             string rutaCarpeta = DatosGenerales.RutaArchivos;
+             string carpetaEliminados = DatosGenerales.CarpetaFotosEliminadas;
+             string rutaOrigenCompletaArchivo = Path.Combine(Server.MapPath(rutaCarpeta), nombreFoto);
+             string rutaDestinoCompletaArchivo = Path.Combine(Server.MapPath(rutaCarpeta), carpetaEliminados, nombreFoto);
+             System.IO.File.Move(rutaOrigenCompletaArchivo, rutaDestinoCompletaArchivo);
+         }
+         return RedirectToAction("Index");
+     }
     }
 }

@@ -30,6 +30,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="id_producto" Type="int" Nullable="false" />
+    <Property Name="estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="tb_marca">
     <Key>

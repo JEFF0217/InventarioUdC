@@ -74,5 +74,28 @@ namespace LogicaNegocio.Implementacion
             MapeadorProductoLogica mapeador = new MapeadorProductoLogica();
             return mapeador.MapearTipo1Tipo2(listado);
         }
+
+        public Boolean EliminarRegistroFoto(int id)
+        {
+            Boolean res = this.accesoDatos.EliminarRegistroFoto(id);
+            return res;
+        }
+
+        public Boolean GuardarNombreFoto(FotosDTO dto)
+        {
+            MapeadorFotosLogica mapeador = new MapeadorFotosLogica();
+            FotosDbModel dbModel = mapeador.MapearTipo2Tipo1(dto);
+            bool res = this.accesoDatos.GuardarFoto(dbModel);
+            return res;
+        }
+
+        public IEnumerable<FotosDTO> ListarFotosPorId(int idVehiculo)
+        {
+
+            IEnumerable<FotosDbModel> listaDbModel = this.accesoDatos.ListarFotosPorId(idVehiculo);
+            MapeadorFotosLogica mapeador = new MapeadorFotosLogica();
+            IEnumerable<FotosDTO> lista = mapeador.MapearTipo1Tipo2(listaDbModel);
+            return lista;
+        }
     }
 }

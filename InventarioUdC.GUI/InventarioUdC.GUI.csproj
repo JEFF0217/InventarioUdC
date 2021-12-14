@@ -161,6 +161,7 @@
     <Compile Include="Mapeadores\Parametros\MapeadorProductoGUI.cs" />
     <Compile Include="Mapeadores\Parametros\MapeadorSedeGUI.cs" />
     <Compile Include="Mapeadores\Parametros\MapeadorTipoProductoGUI.cs" />
+    <Compile Include="Models\ModeloCargaImagenGUI.cs" />
     <Compile Include="Models\ModeloCategoriaGUI.cs" />
     <Compile Include="Models\ModeloEdificioGUI.cs" />
     <Compile Include="Models\ModeloEspacioGUI.cs" />
@@ -196,6 +197,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="UploadFiles\Fotos\prueba.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -260,9 +262,11 @@
     <Content Include="Views\TipoProducto\Details.cshtml" />
     <Content Include="Views\TipoProducto\Edit.cshtml" />
     <Content Include="Views\TipoProducto\Index.cshtml" />
+    <Content Include="Views\Producto\UploadFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadFiles\Fotos\Eliminados\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
