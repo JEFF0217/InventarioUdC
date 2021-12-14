@@ -11,6 +11,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<input type="text" name="idFiltro" id="idFiltro" value="" />
+<button type="button" class="btn btn-primary" onclick="filtrar()">
+    filtrar
+</button>
+
 <table class="table">
     <tr>
         <th>
@@ -39,36 +45,49 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha_registro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Serial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EspacioNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MarcaNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PersonaPrimerNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoProductoNombre)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" }) |
-                @Html.ActionLink("Fotografías", "UploadFile", new { id = item.Id }, new { @class = "btn btn-info" })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha_registro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Serial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EspacioNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarcaNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonaPrimerNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoProductoNombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" }) |
+            @Html.ActionLink("Fotografías", "UploadFile", new { id = item.Id }, new { @class = "btn btn-info" })
+        </td>
+    </tr>
     }
 
 </table>
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+<script type="text/javascript">
+
+    function filtrar() {
+
+        var filtro = $("#idFiltro").val();
+        var url = 'https://localhost:44353/Producto' + '?filtro=' + filtro; // build new url
+        location.href = url; // redirect
+
+    }
+
+
+</script>

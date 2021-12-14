@@ -12,6 +12,7 @@ using InventarioUdC.GUI.Helpers;
 using PagedList;
 using LogicaNegocio.Implementacion;
 using LogicaNegocio.DTO;
+using System.IO;
 
 namespace InventarioUdC.GUI.Controllers
 {
@@ -158,6 +159,33 @@ namespace InventarioUdC.GUI.Controllers
             }
         }
 
-       
+
+        public FileStreamResult Print()
+        {
+            DateTime hoy = DateTime.Now;
+            string fecha_creacion = String.Format("{0}_{1}_{2}_{3}", hoy.Day, hoy.Hour, hoy.Minute, hoy.Millisecond);
+            string nombre_archivo = String.Concat("marcas_", fecha_creacion, ".pdf");
+            string ruta = Server.MapPath("~/pdfReports/Marcas/" + nombre_archivo);
+            MapeadorMarcaGUI mapeador = new MapeadorMarcaGUI();
+            IEnumerable<ModeloMarcaGUI> listaDatos = mapeador.MapearTipo1Tipo2(logica.ListarRegistros());
+            FabricaArchivosPDF fabrica = new FabricaArchivosPDF();
+            bool archivoCreado = fabrica.CrearListadoDeMarcasEnPDF(ruta, "Listado de Marcas", listaDatos);
+
+            if (archivoCreado)
+            {
+                var fileStream = new FileStream(ruta,
+                                    FileMode.Open,
+                                    FileAccess.Read
+                                  );
+                var fsResult = new FileStreamResult(fileStream, "application/pdf");
+                return fsResult;
+            }
+            else
+            {
+                throw new Exception("Error leyendo el archivo");
+            }
+        }
+
+
     }
 }

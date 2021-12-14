@@ -97,3 +97,6 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\es\System.We
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.csproj.CopyComplete
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\BouncyCastle.Crypto.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\itextsharp.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\itextsharp.xml

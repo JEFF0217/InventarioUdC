@@ -8,8 +8,13 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Nuevo registro de Persona", "Create", new{}, new{@class="btn btn-success"})
+    @Html.ActionLink("Nuevo registro de Persona", "Create", new { }, new { @class = "btn btn-success" })
 </p>
+<input type="text" name="idFiltro" id="idFiltro" value="" />
+<button type="button" class="btn btn-primary" onclick="filtrar()">
+    filtrar
+</button>
+
 <table class="table">
     <tr>
         <th>
@@ -61,12 +66,24 @@
                 @Html.DisplayFor(modelItem => item.Correo)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new{@class="btn btn-primary"}) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new{@class="btn btn-warning"}) |
-                @Html.ActionLink("Borrar", "Delete", new { id = item.Id }, new{@class="btn btn-danger"})
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }
 
 </table>
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+<script type="text/javascript">
+
+    function filtrar() {
+
+        var filtro = $("#idFiltro").val();
+        var url = 'https://localhost:44353/Persona' + '?filtro=' + filtro; // build new url
+        location.href = url; // redirect
+
+    }
+
+
+</script>

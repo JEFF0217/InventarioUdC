@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 
 using LogicaNegocio.Implementacion;
-using InventarioUdC.GUI.Helpers;
+using InventarioUdC.GUI.Helpersnuev
 using LogicaNegocio.DTO;
 using InventarioUdC.GUI.Mapeadores.Parametros;
 using InventarioUdC.GUI.Models;

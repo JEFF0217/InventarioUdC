@@ -11,6 +11,12 @@
 <p>
     @Html.ActionLink("Nuevo registro", "Create", new{}, new{@class="btn btn-success"})
 </p>
+
+<input type="text" name="idFiltro" id="idFiltro" value="" />
+<button type="button" class="btn btn-primary" onclick="filtrar()">
+    filtrar
+</button>
+
 <table class="table">
     <tr>
         <th>
@@ -40,3 +46,16 @@
 
 </table>
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+<script type="text/javascript">
+
+    function filtrar() {
+
+        var filtro = $("#idFiltro").val();
+        var url = 'https://localhost:44353/Piso' + '?filtro=' + filtro; // build new url
+        location.href = url; // redirect
+
+    }
+
+
+</script>
