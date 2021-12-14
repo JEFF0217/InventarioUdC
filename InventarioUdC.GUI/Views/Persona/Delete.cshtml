@@ -1,4 +1,4 @@
-﻿@model InventarioUdC.GUI.ModeloDB.tb_persona
+﻿@model InventarioUdC.GUI.Models.ModeloPersonaGUI
 
 @{
     ViewBag.Title = "Delete";
@@ -10,71 +10,75 @@
 <div>
     <h4>tb_persona</h4>
     <hr />
+    @if (ViewBag.mensaje != null)
+    {
+    <strong style="color:red">@ViewBag.mensaje</strong>
+    }
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.primer_nombre)
+            @Html.DisplayNameFor(model => model.Primer_nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.primer_nombre)
+            @Html.DisplayFor(model => model.Primer_nombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.otros_nombres)
+            @Html.DisplayNameFor(model => model.Otros_nombres)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.otros_nombres)
+            @Html.DisplayFor(model => model.Otros_nombres)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.primer_apellido)
+            @Html.DisplayNameFor(model => model.Primer_apellido)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.primer_apellido)
+            @Html.DisplayFor(model => model.Primer_apellido)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.segundo_apellido)
+            @Html.DisplayNameFor(model => model.Segundo_apellido)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.segundo_apellido)
+            @Html.DisplayFor(model => model.Segundo_apellido)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.documento)
+            @Html.DisplayNameFor(model => model.Documento)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.documento)
+            @Html.DisplayFor(model => model.Documento)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.celular)
+            @Html.DisplayNameFor(model => model.Celular)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.celular)
+            @Html.DisplayFor(model => model.Celular)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.correo)
+            @Html.DisplayNameFor(model => model.Correo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.correo)
+            @Html.DisplayFor(model => model.Correo)
         </dd>
 
     </dl>
 
     @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Volver a la lista", "Index", new{}, new{@class="btn btn-danger"})
+    </div>
     }
 </div>

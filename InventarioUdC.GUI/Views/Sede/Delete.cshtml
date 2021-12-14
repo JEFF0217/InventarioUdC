@@ -1,4 +1,4 @@
-﻿@model InventarioUdC.GUI.ModeloDB.tb_sede
+﻿@model InventarioUdC.GUI.Models.ModeloSedeGUI
 
 @{
     ViewBag.Title = "Delete";
@@ -10,31 +10,35 @@
 <div>
     <h4>tb_sede</h4>
     <hr />
+    @if (ViewBag.mensaje != null)
+    {
+    <strong style="color:red">@ViewBag.mensaje</strong>
+    }
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayNameFor(model => model.Nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.nombre)
+            @Html.DisplayFor(model => model.Nombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.direccion)
+            @Html.DisplayNameFor(model => model.Direccion)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.direccion)
+            @Html.DisplayFor(model => model.Direccion)
         </dd>
 
     </dl>
 
     @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
     }
 </div>

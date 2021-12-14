@@ -1,3 +1,5 @@
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.csproj.AssemblyReference.cache
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.csproj.CoreCompileInputs.cache
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\InventarioUdC.GUI.dll.config
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\InventarioUdC.GUI.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\InventarioUdC.GUI.pdb
@@ -53,9 +55,12 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\roslyn\VBCSC
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Antlr3.Runtime.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.SqlServer.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\LogicaNegocio.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Newtonsoft.Json.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.Mvc.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Helpers.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Mvc.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Optimization.dll
@@ -64,8 +69,12 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.W
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.WebPages.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.WebPages.Razor.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\WebGrease.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\AccesoDeDatos.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\LogicaNegocio.pdb
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.SqlServer.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.Mvc.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Helpers.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Mvc.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Optimization.xml
@@ -76,6 +85,8 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.W
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Newtonsoft.Json.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Antlr3.Runtime.pdb
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\AccesoDeDatos.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\AccesoDeDatos.dll.config
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\es\System.Web.Helpers.resources.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\es\System.Web.Mvc.resources.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\es\System.Web.Optimization.resources.dll
@@ -83,8 +94,9 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\es\System.We
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\es\System.Web.WebPages.resources.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\es\System.Web.WebPages.Razor.resources.dll
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.csproj.AssemblyReference.cache
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.csproj.CoreCompileInputs.cache
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.csproj.CopyComplete
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\BouncyCastle.Crypto.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\itextsharp.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\itextsharp.xml

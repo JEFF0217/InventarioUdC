@@ -6,18 +6,33 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using InventarioUdC.GUI.Mapeadores.Parametros;
+using InventarioUdC.GUI.Models;
+using InventarioUdC.GUI.Helpers;
+using PagedList;
+using LogicaNegocio.Implementacion;
+using LogicaNegocio.DTO;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class SedeController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private ImplSedeLogica logica = new ImplSedeLogica();
 
         // GET: Sede
-        public ActionResult Index()
+        public ActionResult Index(int? page, string filtro = "")
         {
-            return View(db.tb_sede.ToList());
+            int numPagina = page ?? 1;
+            int totalRegistros;
+            int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
+
+            IEnumerable<SedeDTO> listaDatos = logica.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
+            MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+            IEnumerable<ModeloSedeGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+
+            // var registrosPagina = ListaGUI.ToPagedList(numPagina, registrosPorPagina);
+            var listaPagina = new StaticPagedList<ModeloSedeGUI>(ListaGUI, numPagina, registrosPorPagina, totalRegistros);
+            return View(listaPagina);
         }
 
         // GET: Sede/Details/5
@@ -27,12 +42,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = db.tb_sede.Find(id);
-            if (tb_sede == null)
+            SedeDTO SedeDTO = logica.BuscarRegistro(id.Value);
+            if (SedeDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_sede);
+            MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(SedeDTO);
+            return View(modelo);
         }
 
         // GET: Sede/Create
@@ -46,16 +63,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre,direccion")] tb_sede tb_sede)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Direccion")] ModeloSedeGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                db.tb_sede.Add(tb_sede);
-                db.SaveChanges();
+                MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+                SedeDTO SedeDTO = mapper.MapearTipo2Tipo1(modelo);
+
+                logica.GuardarRegistro(SedeDTO);
                 return RedirectToAction("Index");
             }
 
-            return View(tb_sede);
+            return View(modelo);
         }
 
         // GET: Sede/Edit/5
@@ -65,12 +84,15 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = db.tb_sede.Find(id);
-            if (tb_sede == null)
+            SedeDTO SedeDTO = logica.BuscarRegistro(id.Value);
+            if (SedeDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_sede);
+
+            MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(SedeDTO);
+            return View(modelo);
         }
 
         // POST: Sede/Edit/5
@@ -78,15 +100,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre,direccion")] tb_sede tb_sede)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Direccion")] ModeloSedeGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_sede).State = EntityState.Modified;
-                db.SaveChanges();
+
+                MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+                SedeDTO SedeDTO = mapper.MapearTipo2Tipo1(modelo);
+
+                logica.EditarRegistro(SedeDTO);
                 return RedirectToAction("Index");
             }
-            return View(tb_sede);
+            return View(modelo);
         }
 
         // GET: Sede/Delete/5
@@ -96,12 +121,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_sede tb_sede = db.tb_sede.Find(id);
-            if (tb_sede == null)
+            SedeDTO SedeDTO = logica.BuscarRegistro(id.Value);
+            if (SedeDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_sede);
+            MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+            ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(SedeDTO);
+            return View(modelo);
         }
 
         // POST: Sede/Delete/5
@@ -109,19 +136,27 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_sede tb_sede = db.tb_sede.Find(id);
-            db.tb_sede.Remove(tb_sede);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            
+            bool respuesta = logica.EliminarRegistro(id);
+            if (respuesta)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                SedeDTO SedeDTO = logica.BuscarRegistro(id);
+                if (SedeDTO == null)
+                {
+                    return HttpNotFound();
+                }
+
+                MapeadorSedeGUI mapper = new MapeadorSedeGUI();
+                ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
+
+                ModeloSedeGUI modelo = mapper.MapearTipo1Tipo2(SedeDTO);
+                return View(modelo);
+            }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<InventarioUdC.GUI.ModeloDB.tb_producto>
+﻿@model IEnumerable<InventarioUdC.GUI.Models.ModeloProductoGUI>
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     ViewBag.Title = "Index";
@@ -9,61 +11,83 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<input type="text" name="idFiltro" id="idFiltro" value="" />
+<button type="button" class="btn btn-primary" onclick="filtrar()">
+    filtrar
+</button>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayNameFor(model => model.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.fecha_registro)
+            @Html.DisplayNameFor(model => model.Fecha_registro)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.serieal)
+            @Html.DisplayNameFor(model => model.Serial)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tb_espacio.nombre)
+            @Html.DisplayNameFor(model => model.EspacioNombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tb_marca.nombre)
+            @Html.DisplayNameFor(model => model.MarcaNombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tb_persona.primer_nombre)
+            @Html.DisplayNameFor(model => model.PersonaPrimerNombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tb_tipo_producto.nombre)
+            @Html.DisplayNameFor(model => model.TipoProductoNombre)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.nombre)
+            @Html.DisplayFor(modelItem => item.Nombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fecha_registro)
+            @Html.DisplayFor(modelItem => item.Fecha_registro)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.serieal)
+            @Html.DisplayFor(modelItem => item.Serial)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tb_espacio.nombre)
+            @Html.DisplayFor(modelItem => item.EspacioNombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tb_marca.nombre)
+            @Html.DisplayFor(modelItem => item.MarcaNombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tb_persona.primer_nombre)
+            @Html.DisplayFor(modelItem => item.PersonaPrimerNombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tb_tipo_producto.nombre)
+            @Html.DisplayFor(modelItem => item.TipoProductoNombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" }) |
+            @Html.ActionLink("Fotografías", "UploadFile", new { id = item.Id }, new { @class = "btn btn-info" })
         </td>
     </tr>
-}
+    }
 
 </table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+<script type="text/javascript">
+
+    function filtrar() {
+
+        var filtro = $("#idFiltro").val();
+        var url = 'https://localhost:44353/Producto' + '?filtro=' + filtro; // build new url
+        location.href = url; // redirect
+
+    }
+
+
+</script>

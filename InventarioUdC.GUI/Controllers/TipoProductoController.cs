@@ -1,23 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+using InventarioUdC.GUI.Mapeadores.Parametros;
+using InventarioUdC.GUI.Models;
+using InventarioUdC.GUI.Helpers;
+using PagedList;
+using LogicaNegocio.Implementacion;
+using LogicaNegocio.DTO;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class TipoProductoController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private ImplTipoProductoLogica logica = new ImplTipoProductoLogica();
 
         // GET: TipoProducto
-        public ActionResult Index()
+        public ActionResult Index(int? page, string filtro = "")
         {
-            return View(db.tb_tipo_producto.ToList());
+            int numPagina = page ?? 1;
+            int totalRegistros;
+            int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
+
+            IEnumerable<TipoProductoDTO> listaDatos = logica.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
+            MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
+            IEnumerable<ModeloTipoProductoGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+
+            // var registrosPagina = ListaGUI.ToPagedList(numPagina, registrosPorPagina);
+            var listaPagina = new StaticPagedList<ModeloTipoProductoGUI>(ListaGUI, numPagina, registrosPorPagina, totalRegistros);
+            return View(listaPagina);
         }
 
         // GET: TipoProducto/Details/5
@@ -27,12 +38,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_tipo_producto tb_tipo_producto = db.tb_tipo_producto.Find(id);
-            if (tb_tipo_producto == null)
+            TipoProductoDTO TipoProductoDTO = logica.BuscarRegistro(id.Value);
+            if (TipoProductoDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_tipo_producto);
+            MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
+            ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(TipoProductoDTO);
+            return View(modelo);
         }
 
         // GET: TipoProducto/Create
@@ -46,16 +59,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre")] tb_tipo_producto tb_tipo_producto)
+        public ActionResult Create([Bind(Include = "Id,Nombre")] ModeloTipoProductoGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                db.tb_tipo_producto.Add(tb_tipo_producto);
-                db.SaveChanges();
+                MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
+                TipoProductoDTO TipoProductoDTO = mapper.MapearTipo2Tipo1(modelo);
+
+                logica.GuardarRegistro(TipoProductoDTO);
                 return RedirectToAction("Index");
             }
 
-            return View(tb_tipo_producto);
+            return View(modelo);
         }
 
         // GET: TipoProducto/Edit/5
@@ -65,12 +80,15 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_tipo_producto tb_tipo_producto = db.tb_tipo_producto.Find(id);
-            if (tb_tipo_producto == null)
+            TipoProductoDTO TipoProductoDTO = logica.BuscarRegistro(id.Value);
+            if (TipoProductoDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_tipo_producto);
+
+            MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
+            ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(TipoProductoDTO);
+            return View(modelo);
         }
 
         // POST: TipoProducto/Edit/5
@@ -78,15 +96,18 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre")] tb_tipo_producto tb_tipo_producto)
+        public ActionResult Edit([Bind(Include = "Id,Nombre")] ModeloTipoProductoGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_tipo_producto).State = EntityState.Modified;
-                db.SaveChanges();
+
+                MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
+                TipoProductoDTO TipoProductoDTO = mapper.MapearTipo2Tipo1(modelo);
+
+                logica.EditarRegistro(TipoProductoDTO);
                 return RedirectToAction("Index");
             }
-            return View(tb_tipo_producto);
+            return View(modelo);
         }
 
         // GET: TipoProducto/Delete/5
@@ -96,12 +117,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_tipo_producto tb_tipo_producto = db.tb_tipo_producto.Find(id);
-            if (tb_tipo_producto == null)
+            TipoProductoDTO TipoProductoDTO = logica.BuscarRegistro(id.Value);
+            if (TipoProductoDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_tipo_producto);
+            MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
+            ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(TipoProductoDTO);
+            return View(modelo);
         }
 
         // POST: TipoProducto/Delete/5
@@ -109,19 +132,28 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_tipo_producto tb_tipo_producto = db.tb_tipo_producto.Find(id);
-            db.tb_tipo_producto.Remove(tb_tipo_producto);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            bool respuesta = logica.EliminarRegistro(id);
+            if (respuesta)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TipoProductoDTO TipoProductoDTO = logica.BuscarRegistro(id);
+                if (TipoProductoDTO == null)
+                {
+                    return HttpNotFound();
+                }
+
+                MapeadorTipoProductoGUI mapper = new MapeadorTipoProductoGUI();
+                ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
+
+                ModeloTipoProductoGUI modelo = mapper.MapearTipo1Tipo2(TipoProductoDTO);
+                return View(modelo);
+            }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
     }
 }

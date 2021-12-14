@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{214DCB6B-D500-4BB8-BA95-AA96F2A2F0E7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AccesoDeDatos</RootNamespace>
+    <AssemblyName>AccesoDeDatos</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DbModel\CategoriaDbModel.cs" />
+    <Compile Include="DbModel\EdificioDbModel.cs" />
+    <Compile Include="DbModel\EspacioDbModel.cs" />
+    <Compile Include="DbModel\FotosDbModel.cs" />
+    <Compile Include="DbModel\MarcaDbModel.cs" />
+    <Compile Include="DbModel\PersonaDbModel.cs" />
+    <Compile Include="DbModel\PisoDbModel.cs" />
+    <Compile Include="DbModel\ProductoDbModel.cs" />
+    <Compile Include="DbModel\SedeDbModel.cs" />
+    <Compile Include="DbModel\TipoProductoDbModel.cs" />
+    <Compile Include="Implementacion\ImplTipoProductoDatos.cs" />
+    <Compile Include="Implementacion\ImplSedeDatos.cs" />
+    <Compile Include="Implementacion\ImplProductoDatos.cs" />
+    <Compile Include="Implementacion\ImplPisoDatos.cs" />
+    <Compile Include="Implementacion\ImplPersonaDatos.cs" />
+    <Compile Include="Implementacion\ImplMarcaDatos.cs" />
+    <Compile Include="Implementacion\ImplFotosDatos.cs" />
+    <Compile Include="Implementacion\ImplEspacioDatos.cs" />
+    <Compile Include="Implementacion\ImplEdificioDatos.cs" />
+    <Compile Include="Implementacion\ImplCategoriaDatos.cs" />
+    <Compile Include="Mapeadores\MapeadorBaseDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorCategoriaDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorEdificioDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorEspacioDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorFotosDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorMarcaDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorPersonaDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorPisoDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorProductoDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorSedeDatos.cs" />
+    <Compile Include="Mapeadores\Parametros\MapeadorTipoProductoDatos.cs" />
+    <Compile Include="ModeloDeDatos\ModeloInventario.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloInventario.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\ModeloInventario.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\ModeloInventario.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloInventario.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_categoria.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_edificio.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_espacio.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_fotos.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_marca.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_persona.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_piso.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_producto.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_sede.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloDeDatos\tb_tipo_producto.cs">
+      <DependentUpon>ModeloInventario.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="ModeloDeDatos\ModeloInventario.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModeloInventario.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="ModeloDeDatos\ModeloInventario.edmx.diagram">
+      <DependentUpon>ModeloInventario.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModeloDeDatos\ModeloInventario.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModeloInventario.Context.cs</LastGenOutput>
+      <DependentUpon>ModeloInventario.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModeloDeDatos\ModeloInventario.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloInventario.edmx</DependentUpon>
+      <LastGenOutput>ModeloInventario.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

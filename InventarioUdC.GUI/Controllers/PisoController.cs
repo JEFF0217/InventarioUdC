@@ -6,20 +6,37 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventarioUdC.GUI.ModeloDB;
+
+using LogicaNegocio.Implementacion;
+using InventarioUdC.GUI.Helpers;
+using LogicaNegocio.DTO;
+using InventarioUdC.GUI.Mapeadores.Parametros;
+using InventarioUdC.GUI.Models;
+using PagedList;
 
 namespace InventarioUdC.GUI.Controllers
 {
     public class PisoController : Controller
     {
-        private InventarioUdCDBEntities db = new InventarioUdCDBEntities();
+        private ImplPisoLogica logica = new ImplPisoLogica();
 
         // GET: Piso
-        public ActionResult Index()
+        public ActionResult Index(int? page, String filtro = "")
         {
-            var tb_piso = db.tb_piso.Include(t => t.tb_edificio);
-            return View(tb_piso.ToList());
+            int numPagina = page ?? 1;
+            int totalRegistros;
+            int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
+
+            IEnumerable<PisoDTO> listaDatos = logica.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
+            MapeadorPisoGUI mapper = new MapeadorPisoGUI();
+            IEnumerable<ModeloPisoGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
+
+            // var registrosPagina = ListaGUI.ToPagedList(numPagina, registrosPorPagina);
+            var listaPagina = new StaticPagedList<ModeloPisoGUI>(ListaGUI, numPagina, registrosPorPagina, totalRegistros);
+            return View(listaPagina);
         }
+
+
 
         // GET: Piso/Details/5
         public ActionResult Details(int? id)
@@ -28,37 +45,55 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_piso tb_piso = db.tb_piso.Find(id);
-            if (tb_piso == null)
+            PisoDTO PisoDTO = logica.BuscarRegistro(id.Value);
+            if (PisoDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_piso);
+
+            MapeadorPisoGUI mapper = new MapeadorPisoGUI();
+            ModeloPisoGUI modelo = mapper.MapearTipo1Tipo2(PisoDTO);
+            return View(modelo);
         }
 
         // GET: Piso/Create
         public ActionResult Create()
         {
-            ViewBag.id_edificio = new SelectList(db.tb_edificio, "id", "nombre");
-            return View();
+            IEnumerable<ModeloEdificioGUI> listadoEdificios = obtenerListadoEdificios();
+            ModeloPisoGUI modelo = new ModeloPisoGUI();
+            modelo.ListaEdificio = listadoEdificios;
+
+            return View(modelo);
         }
+
+        private IEnumerable<ModeloEdificioGUI> obtenerListadoEdificios()
+        {
+            ImplEdificioLogica sede = new ImplEdificioLogica();
+            var listaEdificios = sede.ListarRegistros();
+            MapeadorEdificioGUI mapeador = new MapeadorEdificioGUI();
+
+            var listado = mapeador.MapearTipo1Tipo2(listaEdificios);
+            return listado;
+        }
+
 
         // POST: Piso/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre,id_edificio")] tb_piso tb_piso)
+        public ActionResult Create(ModeloPisoGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                db.tb_piso.Add(tb_piso);
-                db.SaveChanges();
+                MapeadorPisoGUI mapper = new MapeadorPisoGUI();
+                PisoDTO PisoDTO = mapper.MapearTipo2Tipo1(modelo);
+
+                logica.GuardarRegistro(PisoDTO);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_edificio = new SelectList(db.tb_edificio, "id", "nombre", tb_piso.id_edificio);
-            return View(tb_piso);
+            return View(modelo);
         }
 
         // GET: Piso/Edit/5
@@ -68,13 +103,16 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_piso tb_piso = db.tb_piso.Find(id);
-            if (tb_piso == null)
+            PisoDTO PisoDTO = logica.BuscarRegistro(id.Value);
+            if (PisoDTO == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_edificio = new SelectList(db.tb_edificio, "id", "nombre", tb_piso.id_edificio);
-            return View(tb_piso);
+            IEnumerable<ModeloEdificioGUI> listadoEdificios = obtenerListadoEdificios();
+            MapeadorPisoGUI mapper = new MapeadorPisoGUI();
+            ModeloPisoGUI modelo = mapper.MapearTipo1Tipo2(PisoDTO);
+            modelo.ListaEdificio = listadoEdificios;
+            return View(modelo);
         }
 
         // POST: Piso/Edit/5
@@ -82,16 +120,17 @@ namespace InventarioUdC.GUI.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre,id_edificio")] tb_piso tb_piso)
+        public ActionResult Edit(ModeloPisoGUI modelo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_piso).State = EntityState.Modified;
-                db.SaveChanges();
+                MapeadorPisoGUI mapper = new MapeadorPisoGUI();
+                PisoDTO PisoDTO = mapper.MapearTipo2Tipo1(modelo);
+                logica.EditarRegistro(PisoDTO);
                 return RedirectToAction("Index");
             }
-            ViewBag.id_edificio = new SelectList(db.tb_edificio, "id", "nombre", tb_piso.id_edificio);
-            return View(tb_piso);
+
+            return View(modelo);
         }
 
         // GET: Piso/Delete/5
@@ -101,12 +140,14 @@ namespace InventarioUdC.GUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_piso tb_piso = db.tb_piso.Find(id);
-            if (tb_piso == null)
+            PisoDTO PisoDTO = logica.BuscarRegistro(id.Value);
+            if (PisoDTO == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_piso);
+            MapeadorPisoGUI mapper = new MapeadorPisoGUI();
+            ModeloPisoGUI modelo = mapper.MapearTipo1Tipo2(PisoDTO);
+            return View(modelo);
         }
 
         // POST: Piso/Delete/5
@@ -114,19 +155,23 @@ namespace InventarioUdC.GUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_piso tb_piso = db.tb_piso.Find(id);
-            db.tb_piso.Remove(tb_piso);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            bool respuesta = logica.EliminarRegistro(id);
+            if (respuesta)
             {
-                db.Dispose();
+                return RedirectToAction("Index");
             }
-            base.Dispose(disposing);
+            else
+            {
+                PisoDTO PisoDTO = logica.BuscarRegistro(id);
+                if (PisoDTO == null)
+                {
+                    return HttpNotFound();
+                }
+                MapeadorPisoGUI mapper = new MapeadorPisoGUI();
+                ViewBag.mensaje = Mensajes.MensajeErrorAlEliminar;
+                ModeloPisoGUI modelo = mapper.MapearTipo1Tipo2(PisoDTO);
+                return View(modelo);
+            }
         }
     }
 }

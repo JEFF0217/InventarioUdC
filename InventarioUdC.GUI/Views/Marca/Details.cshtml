@@ -1,26 +1,26 @@
-﻿@model InventarioUdC.GUI.ModeloDB.tb_marca
+﻿@model InventarioUdC.GUI.Models.ModeloMarcaGUI
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
-    <h4>tb_marca</h4>
+    <h4>Marcas</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayNameFor(model => model.Nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.nombre)
+            @Html.DisplayFor(model => model.Nombre)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+   
+    @Html.ActionLink("Volver a la lista", "Index", new { }, new { @class = "btn btn-danger" })
 </p>

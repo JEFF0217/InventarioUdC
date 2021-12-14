@@ -1,5 +1,6 @@
-﻿@model IEnumerable<InventarioUdC.GUI.ModeloDB.tb_persona>
-
+﻿@model IEnumerable<InventarioUdC.GUI.Models.ModeloPersonaGUI>
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Index";
 }
@@ -7,63 +8,82 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuevo registro de Persona", "Create", new { }, new { @class = "btn btn-success" })
 </p>
+<input type="text" name="idFiltro" id="idFiltro" value="" />
+<button type="button" class="btn btn-primary" onclick="filtrar()">
+    filtrar
+</button>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.primer_nombre)
+            @Html.DisplayNameFor(model => model.Primer_nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.otros_nombres)
+            @Html.DisplayNameFor(model => model.Otros_nombres)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.primer_apellido)
+            @Html.DisplayNameFor(model => model.Primer_apellido)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.segundo_apellido)
+            @Html.DisplayNameFor(model => model.Segundo_apellido)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.documento)
+            @Html.DisplayNameFor(model => model.Documento)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.celular)
+            @Html.DisplayNameFor(model => model.Celular)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.correo)
+            @Html.DisplayNameFor(model => model.Correo)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.primer_nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.otros_nombres)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.primer_apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.segundo_apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.documento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.celular)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.correo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Primer_nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Otros_nombres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Primer_apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Segundo_apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Documento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Celular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Correo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+<script type="text/javascript">
+
+    function filtrar() {
+
+        var filtro = $("#idFiltro").val();
+        var url = 'https://localhost:44353/Persona' + '?filtro=' + filtro; // build new url
+        location.href = url; // redirect
+
+    }
+
+
+</script>

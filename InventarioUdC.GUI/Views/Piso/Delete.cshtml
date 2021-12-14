@@ -1,40 +1,45 @@
-﻿@model InventarioUdC.GUI.ModeloDB.tb_piso
+﻿@model InventarioUdC.GUI.Models.ModeloPisoGUI
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar piso</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Esta seguro que desea eliminar?</h3>
 <div>
-    <h4>tb_piso</h4>
+    <h4>Piso</h4>
     <hr />
+    @if (ViewBag.mensaje != null)
+    {
+        <strong style="color:red">@ViewBag.mensaje</strong>
+    }
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayNameFor(model => model.Nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.nombre)
+            @Html.DisplayFor(model => model.Nombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tb_edificio.nombre)
+            @Html.DisplayNameFor(model => model.EdificioNombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.tb_edificio.nombre)
+            @Html.DisplayFor(model => model.EdificioNombre)
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "Index", new{}, new{@class="btn btn-danger"})
         </div>
     }
 </div>
