@@ -22,7 +22,7 @@ namespace AccesoDeDatos.Implementacion
             {
                 int regDescartados = (paginaActual - 1) * numRegistrosPorPagina;
                 var listaDatos = (from m in bd.tb_producto
-                         where m.nombre.Contains(filtro)
+                         where m.nombre.Contains(filtro) || m.tb_persona.primer_nombre.Contains(filtro)
                          select m).ToList();
                 totalRegistros = listaDatos.Count();
                 listaDatos = listaDatos.OrderBy(m => m.id).Skip(regDescartados).Take(numRegistrosPorPagina).ToList();

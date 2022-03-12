@@ -11,11 +11,28 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm())
+        {
+<div class="form-group">
+    @Html.LabelFor(modelItem => item.Id_persona, "Id_persona", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownListFor(modelItem => item.Id_persona, new SelectList(item.ListaPersona, "Id", "Primer_nombre"), htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => item.Id_persona, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+</div>
 
+        }
 <input type="text" name="idFiltro" id="idFiltro" value="" />
 <button type="button" class="btn btn-primary" onclick="filtrar()">
     filtrar
 </button>
+
+
 
 <table class="table">
     <tr>
@@ -45,35 +62,37 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha_registro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Serial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EspacioNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MarcaNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PersonaPrimerNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoProductoNombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" }) |
-            @Html.ActionLink("Fotografías", "UploadFile", new { id = item.Id }, new { @class = "btn btn-info" })
-        </td>
-    </tr>
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha_registro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EspacioNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarcaNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonaPrimerNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoProductoNombre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" }) |
+                @Html.ActionLink("Fotografías", "UploadFile", new { id = item.Id }, new { @class = "btn btn-info" })
+            </td>
+        </tr>
     }
 
 </table>

@@ -21,9 +21,11 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.WebPages.Razor.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.Optimization.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\LogicaNegocio.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\itextsharp.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\PagedList.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\WebGrease.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\Antlr3.Runtime.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\EntityFramework.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\InventarioUdC.GUI.pdb
@@ -39,6 +41,7 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\System.Web.Optimization.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\LogicaNegocio.pdb
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\itextsharp.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\PagedList.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.pdb
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI.Tests\bin\Debug\AccesoDeDatos.dll.config

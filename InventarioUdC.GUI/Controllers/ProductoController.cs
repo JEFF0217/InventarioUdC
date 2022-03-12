@@ -27,11 +27,16 @@ namespace InventarioUdC.GUI.Controllers
             int registrosPorPagina = DatosGenerales.RegistrosPorPagina;
 
             IEnumerable<ProductoDTO> listaDatos = logica.ListarRegistros(filtro, numPagina, registrosPorPagina, out totalRegistros).ToList();
+            IEnumerable<ModeloPersonaGUI> listadoPersonas = obtenerListadoPersonas();
             MapeadorProductoGUI mapper = new MapeadorProductoGUI();
             IEnumerable<ModeloProductoGUI> ListaGUI = mapper.MapearTipo1Tipo2(listaDatos);
 
             // var registrosPagina = ListaGUI.ToPagedList(numPagina, registrosPorPagina);
+            
             var listaPagina = new StaticPagedList<ModeloProductoGUI>(ListaGUI, numPagina, registrosPorPagina, totalRegistros);
+           
+            ModeloProductoGUI modelo = new ModeloProductoGUI();
+            modelo.ListaPersona = listadoPersonas;
             return View(listaPagina);
         }
 

@@ -53,8 +53,10 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\roslyn\vbc.r
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\roslyn\VBCSCompiler.exe
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Antlr3.Runtime.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\BouncyCastle.Crypto.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.SqlServer.dll
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\itextsharp.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\LogicaNegocio.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\Microsoft.Web.Infrastructure.dll
@@ -73,6 +75,7 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\AccesoDeDato
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\LogicaNegocio.pdb
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\EntityFramework.SqlServer.xml
+C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\itextsharp.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\PagedList.Mvc.xml
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\System.Web.Helpers.xml
@@ -97,6 +100,3 @@ C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\es\System.We
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.csproj.CopyComplete
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.dll
 C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\obj\Debug\InventarioUdC.GUI.pdb
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\BouncyCastle.Crypto.dll
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\itextsharp.dll
-C:\Users\jeffe\Documents\GitHub\InventarioUdC\InventarioUdC.GUI\bin\itextsharp.xml
